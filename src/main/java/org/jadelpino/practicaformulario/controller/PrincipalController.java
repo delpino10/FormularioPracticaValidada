@@ -3,12 +3,10 @@ package org.jadelpino.practicaformulario.controller;
 import org.jadelpino.practicaformulario.model.Colecciones;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @Controller
 @RequestMapping("formulario")
@@ -16,14 +14,31 @@ public class PrincipalController {
     // Iniciamos el contador de las interacciones
     int interaccion = 0;
 
-    @GetMapping("hola")
-    @ResponseBody
-    public String hola() {
-        return "¡¡¡ Hola mundo !!!";
+    @ModelAttribute("lista_paises")
+    private Map<String, String> devuelveListaPaices() {
+        return Colecciones.getListaPaises();
     }
+
+    @ModelAttribute("lista_generos")
+    private Map<String, String> devuelveListaGeneros() {
+        return Colecciones.getListaGeneros();
+    }
+
+    @ModelAttribute("lista_musicas")
+    private Map<String, String> devuelveListaMusicas() {
+        return Colecciones.getListaMusicas();
+    }
+
+    @ModelAttribute("lista_aficiones")
+    private Map<String, String> devuelveListaAficiones() {
+        return Colecciones.getListaAficiones();
+    }
+
+
 
     @GetMapping("devuelve-formulario")
     public String devuelveFormulario(Model modelo) {
+
         String titulo = " Original";
         String usuario = "Pepe";
 
@@ -32,13 +47,12 @@ public class PrincipalController {
         aficionesDefecto.add("P");
         aficionesDefecto.add("V");
         modelo.addAttribute("aficionesDefecto", aficionesDefecto);
+        modelo.addAttribute("pais_seleccionado", "F");
 
         modelo.addAttribute("titulo", titulo);
         modelo.addAttribute("usuario", usuario);
-        modelo.addAttribute("lista_generos", Colecciones.getListaGenero());
-        modelo.addAttribute("lista_aficiones", Colecciones.getListaAficiones());
-        modelo.addAttribute("lista_paises", Colecciones.getListaPaises());
-        modelo.addAttribute("lista_musica", Colecciones.getListaMusica());
+
+
         return "formulario";
     }
 
@@ -47,8 +61,9 @@ public class PrincipalController {
             @RequestParam(required = false) String usuario,
             @RequestParam(required = false) String clave,
             @RequestParam(required = false) String genero_seleccionado,
-            @RequestParam(required = false) ArrayList<String> aficion_seleccionado,
+            @RequestParam(required = false) ArrayList<String> aficiones_seleccionadas,
             @RequestParam(required = false) String pais_seleccionado,
+            @RequestParam(required = false) ArrayList<String> musicas_seleccionadas,
             Model modelo) {
 
         // Incrementamos las veces que se ha enviado el formulario
@@ -63,11 +78,9 @@ public class PrincipalController {
         modelo.addAttribute("usuario", usuario);
         modelo.addAttribute("clave", clave);
         modelo.addAttribute("genero", genero_seleccionado);
-        modelo.addAttribute("lista_generos", Colecciones.getListaGenero());
-        modelo.addAttribute("aficion-seleccionada", aficion_seleccionado);
-        modelo.addAttribute("lista_aficiones", Colecciones.getListaAficiones());
-        modelo.addAttribute("pais-seleccionada", pais_seleccionado);
-        modelo.addAttribute("lista_paises", Colecciones.getListaPaises());
+        modelo.addAttribute("aficion-seleccionada", aficiones_seleccionadas);
+        modelo.addAttribute("pais_seleccionada", pais_seleccionado);
+        modelo.addAttribute("musica-seleccionada", musicas_seleccionadas);
         modelo.addAttribute("interaccion", interaccion);
 
         return "formulario";
