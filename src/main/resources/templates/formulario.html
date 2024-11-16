@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es"
       xmlns:th="http://www.thymeleaf.org">
->
+
 <head>
     <meta charset="utf-8" />
     <title>Práctica Formulario</title>
@@ -30,45 +30,57 @@
 
     <!--Generos-->
     <fieldset>
-        <legend th:text="#{eco-parametros.generos}"></legend>
-        <label for="genero_seleccionado"></label>
-        <input type="radio" name="genero_seleccionado" id="genero_seleccionado"
-               th:each="genero: ${lista_generos}"
-               th:value="${genero.key}"
-               th:text="${genero.value}"
-        >
+        <legend th:text="#{eco-parametros.generos}">Géneros</legend>
+
+        <div th:each="genero : ${lista_generos}">
+            <input
+                    type="radio"
+                    name="genero_seleccionado"
+                    th:id="'genero_ '+ ${genero.key}"
+                    th:value="${genero.key}"
+                    th:checked="${genero_seleccionado == genero.key}"
+            />
+            <label th:for="'genero_' + ${genero.key}" th:text="${genero.value}">Género</label>
+        </div>
     </fieldset>
 
-        <!--/* Aficiones */-->
-        <fieldset>
-            <legend th:text="#{eco-parametros.aficiones}"></legend>
-            <label for="aficiones_seleccionadas"></label>
-            <input id="aficiones_seleccionadas" name="aficiones_seleccionadas"
-                   type="checkbox"
-                   th:each="aficion: ${lista_aficiones}"
-                   th:text="${aficion.value}"
-                   th:value="${aficion.key}"
-                   th:checked="${aficionesDefecto.contains(aficion.key)}"
-            />
 
-        </fieldset>
+    <!--/* Aficiones */-->
+    <fieldset>
+        <legend th:text="#{eco-parametros.aficiones}">Aficiones</legend>
+
+        <div th:each="aficion : ${lista_aficiones}">
+            <input
+                    id="aficiones_seleccionada"
+                    name="aficiones_seleccionadas"
+                    type="checkbox"
+                    th:value="${aficion.key}"
+                    th:checked="${aficiones_seleccionadas != null && !aficiones_seleccionadas.isEmpty()
+                ? aficion_seleccionada.contains(aficion.key)
+                : aficionesDefecto != null && aficionesDefecto.contains(aficion.key)}"
+            />
+            <label for="aficiones_seleccionada" th:text="${aficion.value}">Afición</label>
+        </div>
+    </fieldset>
 
                 <!--/* Paises */-->
-                <fieldset >
-                    <legend th:text="#{eco-parametros.paises}"></legend>
-                    <label for="pais_seleccionado"></label>
-                    <select name="pais_seleccionado" id="pais_seleccionado">
-                        <option th:each="pais : ${lista_paises}"
-                                th:value="${pais.key}"
-                                th:text="${pais.value}"
-                                th:selected="${pais.key == pais_seleccionado} ? 'selected'">
-                        </option>
-                    </select>
-                </fieldset>
+    <fieldset>
+        <legend th:text="#{eco-parametros.paises}">Países</legend>
+
+        <label for="pais_seleccionado" th:text="#{eco-parametros.paises}">Selecciona un país:</label>
+        <select name="pais_seleccionado" id="pais_seleccionado">
+            <option th:each="pais : ${lista_paises}"
+                    th:value="${pais.key}"
+                    th:text="${pais.value}"
+                    th:selected="${pais_seleccionado == pais.key ? 'selected' : false}">
+            </option>
+        </select>
+    </fieldset>
 
 
 
-                <!--/* Música */-->
+
+    <!--/* Música */-->
                 <fieldset >
                     <legend th:text="#{eco-parametros.musica}"></legend>
                     <label for="musica-seleccionado"></label>

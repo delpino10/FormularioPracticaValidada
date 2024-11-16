@@ -77,9 +77,9 @@ public class PrincipalController {
         modelo.addAttribute("titulo", titulo);
         modelo.addAttribute("usuario", usuario);
         modelo.addAttribute("clave", clave);
-        modelo.addAttribute("genero", genero_seleccionado);
+        modelo.addAttribute("genero_seleccionado", genero_seleccionado);
         modelo.addAttribute("aficion-seleccionada", aficiones_seleccionadas);
-        modelo.addAttribute("pais_seleccionada", pais_seleccionado);
+        modelo.addAttribute("pais_seleccionado", pais_seleccionado);
         modelo.addAttribute("musica-seleccionada", musicas_seleccionadas);
         modelo.addAttribute("interaccion", interaccion);
 
