@@ -49,17 +49,18 @@
     <fieldset>
         <legend th:text="#{eco-parametros.aficiones}">Aficiones</legend>
 
-        <div th:each="aficion : ${lista_aficiones}">
+        <div th:each="a : ${lista_aficiones}">
             <input
-                    id="aficiones_seleccionada"
+                    id="aficion_seleccionada"
                     name="aficiones_seleccionadas"
                     type="checkbox"
-                    th:value="${aficion.key}"
-                    th:checked="${aficiones_seleccionadas != null && !aficiones_seleccionadas.isEmpty()
-                ? aficion_seleccionada.contains(aficion.key)
-                : aficionesDefecto != null && aficionesDefecto.contains(aficion.key)}"
+                    th:value="${a.key}"
+
+                    th:checked="${aficionArray != null && !aficionArray.isEmpty()
+                ? aficionArray.contains(a.key)
+                : aficionesDefecto != null && aficionesDefecto.contains(a.key)}"
             />
-            <label for="aficiones_seleccionada" th:text="${aficion.value}">Afición</label>
+            <label for="aficion_seleccionada" th:text="${a.value}">Afición</label>
         </div>
     </fieldset>
 
@@ -67,7 +68,7 @@
     <fieldset>
         <legend th:text="#{eco-parametros.paises}">Países</legend>
 
-        <label for="pais_seleccionado" th:text="#{eco-parametros.paises}">Selecciona un país:</label>
+        <label for="pais_seleccionado" th:text="#{eco-parametros.paises}"></label>
         <select name="pais_seleccionado" id="pais_seleccionado">
             <option th:each="pais : ${lista_paises}"
                     th:value="${pais.key}"
