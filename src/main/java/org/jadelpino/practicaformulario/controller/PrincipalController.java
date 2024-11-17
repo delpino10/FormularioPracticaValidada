@@ -65,9 +65,19 @@ public class PrincipalController {
         // Campo Licencia
         modelo.addAttribute("licencia", false);
         // Interacciones
-        modelo.addAttribute("interaccion", interaccion);
+       // modelo.addAttribute("interaccion", interaccion);
 
         return "formulario";
+    }
+
+    // Desactiva la peticion del favicon.ico
+    @Controller
+    static class FaviconController {
+
+        @GetMapping("favicon.ico")
+        @ResponseBody
+        void returnNoFavicon() {
+        }
     }
 
     @PostMapping("recibe-parametros")
@@ -79,14 +89,30 @@ public class PrincipalController {
             @RequestParam(required = false) String pais_seleccionado,
             @RequestParam(required = false) ArrayList<String> musicas_seleccionadas,
             @RequestParam(required = false) Boolean licencia,
+            @RequestParam(required = false) String comentario,
+            @RequestParam(value = "archivoSubido", required = false) String archivo,
+            // accedemos al objeto que muestran las coordenadas en x
+            @RequestParam(name = "imagen.x", required = false) Integer x,
+            // accedemos al objeto que muestran las coordenadas en y
+            @RequestParam(name = "imagen.y", required = false) Integer y,
             Model modelo) {
 
+        /*Interacciones*/
+        String interacciones;
         // Incrementamos las veces que se ha enviado el formulario
         interaccion++;
         // Las imprimimos por consola
         System.err.printf("Veces que ha sido enviado el formulario = %d \n", interaccion);
+        // concatenamos en un String el contador de las interacciones
+        interacciones = "Interacciones: " + interaccion;
 
+        //Título
         String titulo = " Repintado";
+
+        // Mostrar el mensaje de las coordenadas en la vista
+        String coordenadas = (x != null && y != null)
+                ? "imagen.x: " + x + " e imagen.y: " + x
+                : "";
 
 
         modelo.addAttribute("titulo", titulo);
@@ -97,9 +123,32 @@ public class PrincipalController {
         modelo.addAttribute("pais_seleccionado", pais_seleccionado);
         modelo.addAttribute("musicaArray", musicas_seleccionadas);
         modelo.addAttribute("licencia", licencia);
-        modelo.addAttribute("interaccion", interaccion);
+        modelo.addAttribute("comentario", comentario);
+        modelo.addAttribute("archivo", archivo);
+        modelo.addAttribute("coordenadas", coordenadas);
+
+        modelo.addAttribute("interaccion", interacciones);
 
         return "formulario";
+    }
+
+    // Clase para encapsular las coordenadas (opcional)
+    public static class Coordenadas {
+        private Integer x;
+        private Integer y;
+
+        public Coordenadas(Integer x, Integer y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public Integer getX() {
+            return x;
+        }
+
+        public Integer getY() {
+            return y;
+        }
     }
 
 }
