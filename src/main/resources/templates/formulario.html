@@ -5,17 +5,23 @@
 <head>
     <meta charset="utf-8" />
     <title>Práctica Formulario</title>
+    <link rel="stylesheet"
+    th:href="@{/css/estilos.css}">
 </head>
 <body>
 
 <h3><b>Formulario <th:block th:text="${titulo}" /></b></h3>
+<br/>
+<div> Interacciones:<th:block th:text="${interaccion}"/> </div>
+<br/>
+<br/>
 <!--/*
 <div> Usuario: <th:block th:text="${usuario}"/> </div>
 <div> Clave: <th:block th:text="${clave}"/> </div>
 <div> genero:: <th:block th:text="${genero}"/> </div>
 */-->
 
-<form action="recibe-parametros" >
+<form action="recibe-parametros" method="post" >
     <fieldset>
         <label for="usuario" th:text="#{eco-parametros.usuario}" />
         <input id="usuario" name="usuario" th:value="${usuario}" type="text" />
@@ -68,7 +74,7 @@
     <fieldset>
         <legend th:text="#{eco-parametros.paises}">Países</legend>
 
-        <label for="pais_seleccionado" th:text="#{eco-parametros.paises}"></label>
+        <label for="pais_seleccionado" ></label>
         <select name="pais_seleccionado" id="pais_seleccionado">
             <option th:each="pais : ${lista_paises}"
                     th:value="${pais.key}"
@@ -78,22 +84,57 @@
         </select>
     </fieldset>
 
-
-
-
     <!--/* Música */-->
-                <fieldset >
-                    <legend th:text="#{eco-parametros.musica}"></legend>
-                    <label for="musica-seleccionado"></label>
-                    <select multiple="multiple" name="musica-seleccionado" id="musica-seleccionado">
-                        <option th:each="musica:${lista_musicas}"
-                                th:value="${musica.key}"
-                                th:text="${musica.value}">
-                        </option>
-                    </select>
-                </fieldset>
+    <fieldset >
+        <legend th:text="#{eco-parametros.musica}"></legend>
+        <label for="musica"></label>
+        <select multiple="multiple" name="musica" id="musica">
+            <option value="0">Selecciona una Opción</option>
+            <option th:each=" m :${lista_musicas}"
+                    th:value="${m.key}"
+                    th:text="${m.value}"
+                    th:selected="${musicaArray != null && !musicaArray.isEmpty()
+                    ? musicaArray.contains(m.key)
+                    : (musicasDefecto != null && musicasDefecto.contains(m.key))}"
+            />
 
-    <!--    <div> Interacciones:<th:block th:text="${interaccion}"/> </div> -->
+        </select>
+    </fieldset>
+
+
+    <br/>
+
+<!--    Comentario-->
+    <fieldset>
+        <legend th:text="#{eco-parametros.comentario}"></legend>
+        <textarea name="comentario"
+                        id="comentario"
+                        cols="30"
+                        rows="10"
+                        placeholder="Deja tu comentario"
+    ></textarea>
+    </fieldset>
+
+    <br/>
+
+<!--    Licencia-->
+    <fieldset >
+        <legend th:text="#{eco-parametros.terminos}"></legend>
+        <label for="licencia" th:text="#{eco-parametros.licencia}"></label>
+        <input type="checkbox"
+               name="licencia"
+               id="licencia"
+               th:checked="${licencia
+               }"
+        >
+    </fieldset>
+
+<!--Imagen-->
+
+
+        <img th:src="@{/img/1.jpg}"
+             alt="flecha" sizes="100" />
+
 
     <input type="submit" value="Enviar">
     <input type="reset" value="Resetear">
