@@ -82,7 +82,7 @@ public class PrincipalController {
     }
 
     // Recibe los parámetros del formulario y los pasa de nuevo a la vista
-    @PostMapping("recibe-parametros")
+    @PostMapping("recibeParametrosYRepinta")
     public String recibeParametros(
             @RequestParam(required = false) String usuario,
             @RequestParam(required = false) String clave,
