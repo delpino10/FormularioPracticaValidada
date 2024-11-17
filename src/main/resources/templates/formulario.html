@@ -12,18 +12,11 @@
 
     <div class="container">
 
-    <div> <b><th:block th:text="${interaccion}"/></b> </div>
+    <div> <th:block th:text="${interaccion}"/> </div>
 
     <b>Formulario <b><th:block th:text="${titulo}" /></b>
 
         <br/>
-
-
-        <!--/*
-        <div> Usuario: <th:block th:text="${usuario}"/> </div>
-        <div> Clave: <th:block th:text="${clave}"/> </div>
-        <div> genero:: <th:block th:text="${genero}"/> </div>
-        */-->
 
         <form action="recibe-parametros" method="post" >
         <!-- Usuario y Clave-->
@@ -113,7 +106,7 @@
 
             <br/>
 
-        <!--    Comentario-->
+        <!--/* Comentario */-->
             <fieldset>
                 <legend th:text="#{eco-parametros.comentario}"></legend>
                 <label for="comentario"></label>
@@ -128,7 +121,7 @@
 
             <br/>
 
-        <!-- Archivo    -->
+        <!-- /* Subir Archivo */ -->
             <fieldset>
                 <legend th:text="#{eco-parametros.archivo}"></legend>
                 <label for="archivo"></label>
@@ -140,7 +133,7 @@
             <br/>
 
 
-        <!--    Licencia-->
+        <!-- Licencia-->
             <fieldset >
                 <legend th:text="#{eco-parametros.terminos}"></legend>
                 <label for="licencia" th:text="#{eco-parametros.licencia}"></label>
@@ -153,7 +146,7 @@
 
             <br/>
 
-    <!--    Botones enviar y reestablecer-->
+        <!--Botones enviar y reestablecer-->
             <input type="submit" value="Enviar">
             <input type="reset" value="Resetear">
 
@@ -166,10 +159,10 @@
                    alt="flecha"
                    width="100px">
 
-            <!-- Mostrar coordenadas después del clic -->
+            <!-- Mostrar coordenadas después de hacer clic -->
             <div th:text="${coordenadas}"/>
 
         </form>
-    </div>
+        </div>
 </body>
 </html>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Map;
 
+// Controlador Principal
 @Controller
 @RequestMapping("formulario")
 public class PrincipalController {
@@ -35,7 +36,7 @@ public class PrincipalController {
     }
 
 
-
+    // Envía la plantilla del formulario a rellenar por el usuario
     @GetMapping("devuelve-formulario")
     public String devuelveFormulario(Model modelo) {
         // Titulo
@@ -80,6 +81,7 @@ public class PrincipalController {
         }
     }
 
+    // Recibe los parámetros del formulario y los pasa de nuevo a la vista
     @PostMapping("recibe-parametros")
     public String recibeParametros(
             @RequestParam(required = false) String usuario,
@@ -132,23 +134,6 @@ public class PrincipalController {
         return "formulario";
     }
 
-    // Clase para encapsular las coordenadas (opcional)
-    public static class Coordenadas {
-        private Integer x;
-        private Integer y;
 
-        public Coordenadas(Integer x, Integer y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public Integer getX() {
-            return x;
-        }
-
-        public Integer getY() {
-            return y;
-        }
-    }
 
 }
