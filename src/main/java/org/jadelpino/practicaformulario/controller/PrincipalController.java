@@ -1,6 +1,7 @@
 package org.jadelpino.practicaformulario.controller;
 
 import org.jadelpino.practicaformulario.model.Colecciones;
+import org.jadelpino.practicaformulario.model.DatosFormulario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,11 +39,13 @@ public class PrincipalController {
 
     // Envía la plantilla del formulario a rellenar por el usuario
     @GetMapping("devuelve-formulario")
-    public String devuelveFormulario(Model modelo) {
+    public String devuelveFormulario(
+            @ModelAttribute ("datosFormulario") DatosFormulario datosFormulario,
+            Model modelo) {
         // Titulo
         String titulo = " Original";
         // Campo Usuario
-        String usuario = "Pepe";
+        String usuario = "Lola";
         // Campo Aficiones
         ArrayList<String> aficionesDefecto = new ArrayList<>();
         aficionesDefecto.add("D");

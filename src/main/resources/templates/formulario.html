@@ -5,51 +5,100 @@
 <head>
     <meta charset="utf-8" />
     <title>Práctica Formulario</title>
-    <link rel="stylesheet"
-    th:href="@{/css/estilos.css}">
+    <!--<link rel="stylesheet" th:href="@{/css/estilos.css}">-->
 </head>
 <body>
 
-    <div class="container">
 
     <div> <th:block th:text="${interaccion}"/> </div>
 
-    <b>Formulario <b><th:block th:text="${titulo}" /></b>
+    <b>Formulario <th:block th:text="${titulo}" /></b>
 
         <br/>
 
-        <form action="recibeParametrosYRepinta" method="post" >
-        <!-- Usuario y Clave-->
+        <form action="recibeParametrosYRepinta" method="post" th:object="${datosFormulario}" >
+<!-- Datos Personales-->
             <fieldset>
-                <label for="usuario" th:text="#{eco-parametros.usuario}" />
-                <input id="usuario" name="usuario" th:value="${usuario}" type="text" />
-                <br />
-
-                <label for="clave" th:text="#{eco-parametros.clave}" />
-                <input type="password" name="clave" id="clave" />
+                <legend th:text="#{Datos-Personales.DatosPersonales}"></legend>
 
                 <input type="hidden" name="interacciones">
+
+                <label for="usuario" th:text="#{Datos-Personales.usuario}" />
+                <input type="text" id="usuario" th:field="*{usuario}"  />
+
+
+                <label for="clave" th:text="#{Datos-Personales.clave}" />
+                <input type="password" th:field="*{clave}" id="clave" />
+
+                <label for="confirmarClave" th:text="#{Datos-Personales.confirmarClave}" />
+                <input type="password" th:field="*{confirmarClave}" id="confirmarClave" />
+
+                <br/>
+
+            <!--Géneros-->
+                <fieldset>
+                    <legend th:text="#{Datos-Personales.genero}" />
+                    <div th:each="genero : ${lista_generos}" >
+                        <input
+                                type="radio"
+                                name="genero_seleccionado"
+                                th:id="'genero_ '+ ${genero.key}"
+                                th:value="${genero.key}"
+                                th:checked="${genero_seleccionado == genero.key}"
+                        />
+                        <label th:for="'genero_' + ${genero.key}" th:text="${genero.value}"></label>
+                    </div>
+                </fieldset>
+
+                <br/>
+
+            <!--/* Paises */-->
+                <label for="pais_seleccionado" th:text="#{Datos-Personales.pais}"></label>
+                <select name="pais_seleccionado" id="pais_seleccionado">
+                    <option th:each="pais : ${lista_paises}"
+                            th:value="${pais.key}"
+                            th:text="${pais.value}"
+                            th:selected="${pais_seleccionado == pais.key ? 'selected' : false}">
+                    </option>
+                </select>
+
+                <br />
+                <br />
+
+            <!--Fecha Nacimiento-->
+                <label for="fechaNacimiento" th:text="#{Datos-Personales.fechaNacimiento}"></label>
+                <input type="date" th:field="*{fechaNacimiento}" id="fechaNacimiento">
+
+            <!--Edad    -->
+                <label for="edad" th:text="#{Datos-Personales.edad}"></label>
+                <input type="number" th:field="*{edad}" id="edad">
+
+             <!--Peso   -->
+                <label for="peso" th:text="#{Datos-Personales.peso}"></label>
+                <input type="number" th:field="*{peso}" id="peso">
+
             </fieldset>
 
-            <br />
+    <!--Datos de Contacto        -->
 
-        <!--Generos-->
             <fieldset>
-                <legend th:text="#{eco-parametros.generos}">Géneros</legend>
+                <legend th:text="#{Datos-contacto.datosContacto}"></legend>
 
-                <div th:each="genero : ${lista_generos}">
-                    <label th:for="'genero_' + ${genero.key}" th:text="${genero.value}">Género</label>
-                    <input
-                            type="radio"
-                            name="genero_seleccionado"
-                            th:id="'genero_ '+ ${genero.key}"
-                            th:value="${genero.key}"
-                            th:checked="${genero_seleccionado == genero.key}"
-                    />
-                </div>
+                <!--Prefijo-->
+                <label for="prefijoTelefonico" th:text="#{Datos-contacto.prefijoTelefonico}" />
+                <input type="text" id="prefijoTelefonico" th:field="*{prefijoTelefonico}"  />
+                <!--Telefono-->
+                <label for="telefono" th:text="#{Datos-contacto.telefono}" />
+                <input type="text" id="telefono" th:field="*{telefono}"  />
+                <!--Email-->
+                <label for="email" th:text="#{Datos-contacto.email}" />
+                <input type="text" id="email" th:field="*{email}"  />
+                <!--Url-->
+                <label for="url" th:text="#{Datos-contacto.url}" />
+                <input type="text" id="url" th:field="*{url}"  />
             </fieldset>
 
-            <br/>
+
 
         <!--/* Aficiones */-->
             <fieldset>
@@ -72,21 +121,6 @@
 
             <br/>
 
-        <!--/* Paises */-->
-            <fieldset>
-                <legend th:text="#{eco-parametros.paises}">Países</legend>
-
-                <label for="pais_seleccionado" ></label>
-                <select name="pais_seleccionado" id="pais_seleccionado">
-                    <option th:each="pais : ${lista_paises}"
-                            th:value="${pais.key}"
-                            th:text="${pais.value}"
-                            th:selected="${pais_seleccionado == pais.key ? 'selected' : false}">
-                    </option>
-                </select>
-            </fieldset>
-
-            <br/>
 
         <!--/* Música */-->
             <fieldset >
@@ -105,6 +139,16 @@
             </fieldset>
 
             <br/>
+        <!-- /* Subir Archivo */ -->
+            <fieldset>
+                <legend th:text="#{eco-parametros.archivo}"></legend>
+                <label for="archivo"></label>
+                <input type="file" th:name="archivoSubido" id="archivo">
+            </fieldset>
+        <!-- Muestra el nombre del archivo-->
+        <!--<div>  <th:block th:text="${archivo}"/> </div>-->
+
+            <br/>
 
         <!--/* Comentario */-->
             <fieldset>
@@ -121,14 +165,6 @@
 
             <br/>
 
-        <!-- /* Subir Archivo */ -->
-            <fieldset>
-                <legend th:text="#{eco-parametros.archivo}"></legend>
-                <label for="archivo"></label>
-                <input type="file" th:name="archivoSubido" id="archivo">
-            </fieldset>
-        <!-- Muestra el nombre del archivo-->
-        <!--<div>  <th:block th:text="${archivo}"/> </div>-->
 
             <br/>
 
@@ -163,6 +199,6 @@
             <div th:text="${coordenadas}"/>
 
         </form>
-    </div>
+
 </body>
 </html>
