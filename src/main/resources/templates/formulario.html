@@ -10,9 +10,10 @@
 <body>
 
 
+
     <div> <th:block th:text="${interaccion}"/> </div>
 
-    <b>Formulario <th:block th:text="${titulo}" /></b>
+    <h1><b>Formulario <th:block th:text="${titulo}" /></b></h1>
 
         <br/>
 
@@ -55,10 +56,10 @@
             <!--/* Paises */-->
                 <label for="pais_seleccionado" th:text="#{Datos-Personales.pais}"></label>
                 <select name="pais_seleccionado" id="pais_seleccionado">
-                    <option th:each="pais : ${lista_paises}"
-                            th:value="${pais.key}"
-                            th:text="${pais.value}"
-                            th:selected="${pais_seleccionado == pais.key ? 'selected' : false}">
+                    <option th:each="p : ${lista_paises}"
+                            th:value="${p.key}"
+                            th:text="${p.value.pais}"
+                            th:selected="${pais_seleccionado == p.key ? 'selected' : ''}">
                     </option>
                 </select>
 
@@ -85,8 +86,14 @@
                 <legend th:text="#{Datos-contacto.datosContacto}"></legend>
 
                 <!--Prefijo-->
-                <label for="prefijoTelefonico" th:text="#{Datos-contacto.prefijoTelefonico}" />
-                <input type="text" id="prefijoTelefonico" th:field="*{prefijoTelefonico}"  />
+                <label for="prefijoTelefonicoPais" th:text="#{Datos-contacto.prefijoTelefonico}" />
+                <select name="prefijoTelefonicoPais" id="prefijoTelefonicoPais">
+                    <option th:each="p : ${lista_paises}"
+                            th:value="${p.key}"
+                            th:text="${p.value.prefijoTelefonicoPais}"
+                            th:selected="${pais_seleccionado == p.key ? 'selected' : false}">
+                    </option>
+                </select>
                 <!--Telefono-->
                 <label for="telefono" th:text="#{Datos-contacto.telefono}" />
                 <input type="text" id="telefono" th:field="*{telefono}"  />
@@ -99,10 +106,10 @@
             </fieldset>
 
 
-
+    <!--Otros Datos-->
         <!--/* Aficiones */-->
             <fieldset>
-                <legend th:text="#{eco-parametros.aficiones}">Aficiones</legend>
+                <legend th:text="#{otros-datos.legend}"></legend>
 
                 <div th:each="a : ${lista_aficiones}">
                     <input
@@ -117,14 +124,12 @@
                     />
                     <label for="aficion_seleccionada" th:text="${a.value}">Afición</label>
                 </div>
-            </fieldset>
+
 
             <br/>
 
 
         <!--/* Música */-->
-            <fieldset >
-                <legend th:text="#{eco-parametros.musica}"></legend>
                 <label for="musica"></label>
                 <select multiple="multiple" name="musica" id="musica">
                     <option value="0">Selecciona una Opción</option>
@@ -136,23 +141,18 @@
                             : (musicasDefecto != null && musicasDefecto.contains(m.key))}"
                     />
                 </select>
-            </fieldset>
+
 
             <br/>
         <!-- /* Subir Archivo */ -->
-            <fieldset>
-                <legend th:text="#{eco-parametros.archivo}"></legend>
                 <label for="archivo"></label>
                 <input type="file" th:name="archivoSubido" id="archivo">
-            </fieldset>
         <!-- Muestra el nombre del archivo-->
         <!--<div>  <th:block th:text="${archivo}"/> </div>-->
 
             <br/>
 
         <!--/* Comentario */-->
-            <fieldset>
-                <legend th:text="#{eco-parametros.comentario}"></legend>
                 <label for="comentario"></label>
                 <textarea
                         name="comentario"
@@ -161,7 +161,6 @@
                         rows="10"
                         placeholder="Deja tu comentario"
                 ></textarea>
-            </fieldset>
 
             <br/>
 
@@ -170,21 +169,14 @@
 
 
         <!-- Licencia-->
-            <fieldset >
-                <legend th:text="#{eco-parametros.terminos}"></legend>
-                <label for="licencia" th:text="#{eco-parametros.licencia}"></label>
+                <legend th:text="#{otros-datos.terminos}"></legend>
+                <label for="licencia" th:text="#{otros-datos.licencia}"></label>
                 <input type="checkbox"
                        name="licencia"
                        id="licencia"
                        th:checked="${licencia}"
                 >
             </fieldset>
-
-            <br/>
-
-        <!--Botones enviar y reestablecer-->
-            <input type="submit" value="Enviar">
-            <input type="reset" value="Resetear">
 
             <br/>
 
@@ -198,6 +190,12 @@
             <!-- Mostrar coordenadas después de hacer clic -->
             <div th:text="${coordenadas}"/>
 
+            <br/>
+
+        <!--Botones enviar, reestablecer y Vaciar Campos-->
+            <input type="submit" value="Enviar">
+            <input type="reset" value="Resetear">
+            <input type="reset" value="Resetear">
         </form>
 
 </body>

@@ -8,9 +8,10 @@ public class Colecciones {
 
     private static final Map<String, String> listaAficiones = new TreeMap<>();
 
-    private static final Map<String, String> listaPaises = new TreeMap<>();
+    private static final Map<String, Pais> listaPaises = new TreeMap<>();
 
     private static final Map<String, String> listaMusicas = new TreeMap<>();
+
 
     static{
         listaGeneros.put("M", "Masculino");
@@ -22,10 +23,11 @@ public class Colecciones {
         listaAficiones.put("P", "Pintura");
         listaAficiones.put("V", "Viajes");
 
-        listaPaises.put("A", "Andorra");
-        listaPaises.put("E", "España");
-        listaPaises.put("F", "Francia");
-        listaPaises.put("P", "Portugal");
+        listaPaises.put("es", new Pais("España", "Castellano", "+34", true, "espania.jpg"));
+        listaPaises.put("fr", new Pais("Francia", "Francés", "+33", false, "francia.jpg"));
+        listaPaises.put("it", new Pais("Italia", "Italiano", "+39", false, "italia.jpg"));
+        listaPaises.put("pt", new Pais("Portugal", "Portugués", "+351", false, "portugal.jpg"));
+        listaPaises.put("en", new Pais("Reino Unido", "Ingl", "+44", true, "reino_unido.jpg"));
 
         listaMusicas.put("E", "Electrónica");
         listaMusicas.put("F", "Funky");
@@ -43,7 +45,7 @@ public class Colecciones {
         return listaAficiones;
     }
 
-    public static Map<String, String> getListaPaises() {
+    public static Map<String, Pais> getListaPaises() {
         return listaPaises;
     }
 

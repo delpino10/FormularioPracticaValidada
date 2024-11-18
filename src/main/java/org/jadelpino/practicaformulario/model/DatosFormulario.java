@@ -16,7 +16,7 @@ public class DatosFormulario {
     private String paisSeleccionado;
     private LocalDate fechaNacimiento;
     private Integer edad;
-    private float peso;
+    private Float peso;
     private String prefijoTelefonico;
     private String telefono;
     private String email;
@@ -25,6 +25,6 @@ public class DatosFormulario {
     private List<String> musicasSeleccionadas;
     private List<String> aficionesSeleccionadas;
     private String comentarios;
-    private boolean licencia;
+    private Boolean licencia;
 
 }
