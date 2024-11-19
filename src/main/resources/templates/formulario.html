@@ -59,7 +59,7 @@
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
                             th:text="${p.value.pais}"
-                            th:selected="${p.key == pais_seleccionado ? 'selected' : false}">
+                            th:selected="${pais_seleccionado == p.key ? 'selected' : false}">
                     </option>
                 </select>
 
@@ -91,7 +91,7 @@
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
                             th:text="${p.value.prefijoTelefonicoPais}"
-                            th:selected="${pais_seleccionado == p.key ? 'selected' : ''}">
+                            th:selected="${pais_seleccionado == p.key ? 'selected' : false}">
                     </option>
                 </select>
                 <!--Telefono-->
