@@ -42,11 +42,11 @@
                     <div th:each="genero : ${lista_generos}" >
                         <input
                                 type="radio"
-                                name="genero_seleccionado"
+                                th:field="*{generoSeleccionado}"
                                 th:id="'genero_ '+ ${genero.key}"
                                 th:value="${genero.key}"
-                                th:checked="${genero_seleccionado == genero.key}"
                         />
+<!--                                th:checked="${genero_seleccionado == genero.key}"-->
                         <label th:for="'genero_' + ${genero.key}" th:text="${genero.value}"></label>
                     </div>
                 </fieldset>
@@ -55,11 +55,11 @@
 
             <!--/* Paises */-->
                 <label for="pais_seleccionado" th:text="#{Datos-Personales.pais}"></label>
-                <select name="pais_seleccionado" id="pais_seleccionado">
+                <select th:field="*{paisSeleccionado}" id="pais_seleccionado">
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
                             th:text="${p.value.pais}"
-                            th:selected="${pais_seleccionado == p.key ? 'selected' : ''}">
+                            th:selected="${p.key == pais_seleccionado ? 'selected' : false}">
                     </option>
                 </select>
 
@@ -87,11 +87,11 @@
 
                 <!--Prefijo-->
                 <label for="prefijoTelefonicoPais" th:text="#{Datos-contacto.prefijoTelefonico}" />
-                <select name="prefijoTelefonicoPais" id="prefijoTelefonicoPais">
+                <select th:field="*{prefijoTelefonico}" id="prefijoTelefonicoPais">
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
                             th:text="${p.value.prefijoTelefonicoPais}"
-                            th:selected="${pais_seleccionado == p.key ? 'selected' : false}">
+                            th:selected="${pais_seleccionado == p.key ? 'selected' : ''}">
                     </option>
                 </select>
                 <!--Telefono-->
