@@ -48,33 +48,9 @@ public class PrincipalController {
             Model modelo) {
         // Titulo
         String titulo = " Original";
-        // Campo Usuario
-        String usuario = "Lola";
-        // Campo Paises
-        String pais_seleccionado ="pt";
-        // Campo Aficiones
-        ArrayList<String> aficionesDefecto = new ArrayList<>();
-        aficionesDefecto.add("D");
-        aficionesDefecto.add("P");
-        aficionesDefecto.add("V");
-        // Campo Músicas
-        ArrayList<String> musicasDefecto = new ArrayList<>();
-        musicasDefecto.add("F");
-        musicasDefecto.add("P");
-
 
         // Titulo
         modelo.addAttribute("titulo", titulo);
-        // Campo Aficiones
-        modelo.addAttribute("aficionesDefecto", aficionesDefecto);
-        // Campo Paises
-        modelo.addAttribute("pais_seleccionado", pais_seleccionado );
-        // CAmpo Música
-        modelo.addAttribute("musicasDefecto", musicasDefecto);
-        // Campo Usuario
-        modelo.addAttribute("usuario", usuario);
-        // Campo Licencia
-        modelo.addAttribute("licencia", false);
         // Interacciones
        // modelo.addAttribute("interaccion", interaccion);
 

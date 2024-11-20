@@ -3,28 +3,49 @@ package org.jadelpino.practicaformulario.model;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @ToString
 public class DatosFormulario {
-
-    private String usuario;
+    // String Lola como valor por defecto a la vista
+    private String usuario = "Lola";
     private String clave;
     private String confirmarClave;
     private String generoSeleccionado;
-    private String paisSeleccionado;
+    //Portugal como pais por defecto a la vista
+    private String paisSeleccionado = "pt";
     private LocalDate fechaNacimiento;
     private Integer edad;
     private Float peso;
-    private String prefijoTelefonico;
+    // Prefijo Francia como Prefijo por defecto a la vista
+    private String prefijoTelefonico = "fr";
     private String telefono;
     private String email;
     private String url;
     private String archivos;
-    private List<String> musicasSeleccionadas;
-    private List<String> aficionesSeleccionadas;
+    // Pasamos los valores de las musicas por defecto a la vista
+    private List<String> musicasSeleccionadas = musicasDefecto();
+    // Pasamos los valores de las aficiones por defecto a la vista
+    private List<String> aficionesSeleccionadas = aficionesDefecto();
     private String comentarios;
     private Boolean licencia;
+
+    // Guardamos en un Arraylist los valores por defecto de aficiones
+    private List<String> aficionesDefecto(){
+        List<String> aficionesDefecto = new ArrayList<String>();
+        aficionesDefecto.add("D");
+        aficionesDefecto.add("P");
+        aficionesDefecto.add("V");
+        return aficionesDefecto;
+
+    }// Guardamos en un Arraylist los valores por defecto de musica
+    private List<String> musicasDefecto(){
+        List<String> musicasDefecto = new ArrayList<String>();
+        musicasDefecto.add("F");
+        musicasDefecto.add("P");
+        return musicasDefecto;
+    }
 
 }

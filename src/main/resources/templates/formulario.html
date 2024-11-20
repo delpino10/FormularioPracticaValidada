@@ -58,9 +58,7 @@
                 <select th:field="*{paisSeleccionado}" id="pais_seleccionado">
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
-                            th:text="${p.value.pais}"
-                            th:selected="${pais_seleccionado == p.key ? 'selected' : false}">
-                    </option>
+                            th:text="${p.value.pais}"/>
                 </select>
 
                 <br />
@@ -90,9 +88,7 @@
                 <select th:field="*{prefijoTelefonico}" id="prefijoTelefonicoPais">
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
-                            th:text="${p.value.prefijoTelefonicoPais}"
-                            th:selected="${pais_seleccionado == p.key ? 'selected' : false}">
-                    </option>
+                            th:text="${p.value.prefijoTelefonicoPais}"/>
                 </select>
                 <!--Telefono-->
                 <label for="telefono" th:text="#{Datos-contacto.telefono}" />
@@ -111,68 +107,63 @@
             <fieldset>
                 <legend th:text="#{otros-datos.legend}"></legend>
 
+                <label for="aficion_seleccionada" th:text="#{otros-datos.aficiones}"></label>
                 <div th:each="a : ${lista_aficiones}">
-                    <input
-                            id="aficion_seleccionada"
-                            name="aficiones_seleccionadas"
+                    <input  id="aficion_seleccionada"
                             type="checkbox"
+                            th:field="*{aficionesSeleccionadas}"
                             th:value="${a.key}"
-
-                            th:checked="${aficionArray != null && !aficionArray.isEmpty()
-                        ? aficionArray.contains(a.key)
-                        : aficionesDefecto != null && aficionesDefecto.contains(a.key)}"
-                    />
-                    <label for="aficion_seleccionada" th:text="${a.value}">Afición</label>
+                            th:text="${a.value}"
+                            th:checked="${!#lists.isEmpty(aficionesSeleccionadas) and aficionesSeleccionadas.contains(a.key)}"/>
+                    <!--Añadir !#lists.isEmpty(aficionesSeleccionadas) para que la aplicación no falle,
+                    si el usuario no selecciona ninguna casilla-->
                 </div>
 
-
             <br/>
-
 
         <!--/* Música */-->
-                <label for="musica"></label>
-                <select multiple="multiple" name="musica" id="musica">
-                    <option value="0">Selecciona una Opción</option>
-                    <option th:each=" m :${lista_musicas}"
-                            th:value="${m.key}"
-                            th:text="${m.value}"
-                            th:selected="${musicaArray != null && !musicaArray.isEmpty()
-                            ? musicaArray.contains(m.key)
-                            : (musicasDefecto != null && musicasDefecto.contains(m.key))}"
-                    />
-                </select>
-
+                <label for="musica" th:text="#{otros-datos.musicas}"></label>
+                <div>
+                    <select multiple="multiple" id="musica" th:field="*{musicasSeleccionadas}" >
+                        <option th:each=" m :${lista_musicas}"
+                                th:value="${m.key}"
+                                th:text="${m.value}"
+                                th:selected="${!#lists.isEmpty(musicasSeleccionadas) && musicasSeleccionadas.contains(m.key)}"/>
+                    <!--Añadir !#lists.isEmpty(aficionesSeleccionadas) para que la aplicación no falle,
+                        si el usuario no selecciona ninguna casilla-->
+                    </select>
+                </div>
 
             <br/>
+
         <!-- /* Subir Archivo */ -->
-                <label for="archivo"></label>
-                <input type="file" th:name="archivoSubido" id="archivo">
+                <label for="archivo" th:text="#{otros-datos.archivo}"></label>
+                <input type="file" th:field="*{archivos}" id="archivo">
         <!-- Muestra el nombre del archivo-->
         <!--<div>  <th:block th:text="${archivo}"/> </div>-->
 
             <br/>
+            <br/>
 
         <!--/* Comentario */-->
-                <label for="comentario"></label>
-                <textarea
-                        name="comentario"
-                        id="comentario"
-                        cols="30"
-                        rows="10"
-                        placeholder="Deja tu comentario"
-                ></textarea>
+                <label for="comentario" th:text="#{otros-datos.comentario}"></label>
+                <div>
+                    <textarea
+                            th:field="*{comentarios}"
+                            id="comentario"
+                            cols="30"
+                            rows="10"
+                            th:placeholder="#{otros-datos.comentarioPH}"
+                    ></textarea>
+                </div>
 
             <br/>
-
-
             <br/>
-
-
         <!-- Licencia-->
                 <legend th:text="#{otros-datos.terminos}"></legend>
                 <label for="licencia" th:text="#{otros-datos.licencia}"></label>
                 <input type="checkbox"
-                       name="licencia"
+                       th:field="*{licencia}"
                        id="licencia"
                        th:checked="${licencia}"
                 >
