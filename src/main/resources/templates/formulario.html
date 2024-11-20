@@ -5,28 +5,35 @@
 <head>
     <meta charset="utf-8" />
     <title>Práctica Formulario</title>
-    <!--<link rel="stylesheet" th:href="@{/css/estilos.css}">-->
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 
 
 
-    <div> <th:block th:text="${interaccion}"/> </div>
+    <div id="interaccion">
+        <th:block th:text="#{eco-parametros.interacciones}"/>
+        <th:block th:text="${interaccion}"/>
+    </div>
 
     <h1><b>Formulario <th:block th:text="${titulo}" /></b></h1>
+    <h3 class="correcto" th:if="${mensajeOk}" th:text="${mensajeOk}"/>
+    <h3 class="error" th:if="${mensajeNOK}" th:text="${mensajeNOK}"/>
 
-        <br/>
 
-        <form action="recibeParametrosYRepinta" method="post" th:object="${datosFormulario}" >
+    <br/>
+
+    <form action="recibeParametrosYRepinta" method="post" th:object="${datosFormulario}" >
 <!-- Datos Personales-->
             <fieldset>
                 <legend th:text="#{Datos-Personales.DatosPersonales}"></legend>
 
                 <input type="hidden" name="interacciones">
-
-                <label for="usuario" th:text="#{Datos-Personales.usuario}" />
-                <input type="text" id="usuario" th:field="*{usuario}"  />
-
+                <div>
+                    <label for="usuario" th:text="#{Datos-Personales.usuario}" />
+                    <input type="text" id="usuario" th:field="*{usuario}"  />
+                    <p th:each="error : ${#fields.errors('usuario')}" th:text="${error}" class="error"/>
+                </div>
 
                 <label for="clave" th:text="#{Datos-Personales.clave}" />
                 <input type="password" th:field="*{clave}" id="clave" />
@@ -46,7 +53,7 @@
                                 th:id="'genero_ '+ ${genero.key}"
                                 th:value="${genero.key}"
                         />
-<!--                                th:checked="${genero_seleccionado == genero.key}"-->
+<!--                    th:checked="${genero_seleccionado == genero.key}"-->
                         <label th:for="'genero_' + ${genero.key}" th:text="${genero.value}"></label>
                     </div>
                 </fieldset>
@@ -139,7 +146,7 @@
         <!-- /* Subir Archivo */ -->
                 <label for="archivo" th:text="#{otros-datos.archivo}"></label>
                 <input type="file" th:field="*{archivos}" id="archivo">
-        <!-- Muestra el nombre del archivo-->
+        <!-- Muestra el nombre del archivo subido-->
         <!--<div>  <th:block th:text="${archivo}"/> </div>-->
 
             <br/>

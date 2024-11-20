@@ -1,10 +1,12 @@
 package org.jadelpino.practicaformulario.controller;
 
+import jakarta.validation.Valid;
 import org.jadelpino.practicaformulario.model.Colecciones;
 import org.jadelpino.practicaformulario.model.DatosFormulario;
 import org.jadelpino.practicaformulario.model.Pais;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -52,7 +54,7 @@ public class PrincipalController {
         // Titulo
         modelo.addAttribute("titulo", titulo);
         // Interacciones
-       // modelo.addAttribute("interaccion", interaccion);
+       modelo.addAttribute("interaccion", interaccion);
 
         return "formulario";
     }
@@ -70,69 +72,41 @@ public class PrincipalController {
     // Recibe los parámetros del formulario y los pasa de nuevo a la vista
     @PostMapping("recibeParametrosYRepinta")
     public String recibeParametros(
-            DatosFormulario datosFormulario,
-            @RequestParam(required = false) String usuario,
-            @RequestParam(required = false) String clave,
-            @RequestParam(required = false) String confirmarClave,
-            @RequestParam(required = false) String genero_seleccionado,
-            @RequestParam(required = false) String pais_seleccionado,
-            @RequestParam(required = false) LocalDate FechaNacimiento,
-            @RequestParam(required = false) Integer edad,
-            @RequestParam(required = false) Float peso,
-            @RequestParam(required = false) String prefijoTelefonico,
-            @RequestParam(required = false) String telefono,
-            @RequestParam(required = false) String email,
-            @RequestParam(required = false) String url,
-            @RequestParam(value = "archivoSubido", required = false) String archivo,
-            @RequestParam(required = false) ArrayList<String> musicas_seleccionadas,
-            @RequestParam(required = false) ArrayList<String> aficiones_seleccionadas,
-            @RequestParam(required = false) String comentario,
-            @RequestParam(required = false) Boolean licencia,
+            @Valid DatosFormulario datosFormulario,
+            BindingResult bindingResult,
             // accedemos al objeto que muestran las coordenadas en x
             @RequestParam(name = "imagen.x", required = false) Integer x,
             // accedemos al objeto que muestran las coordenadas en y
             @RequestParam(name = "imagen.y", required = false) Integer y,
-            Model modelo) {
+            Model modelo
+            ) {
 
-        //Título
-        String titulo = " Repintado";
+        if(bindingResult.hasErrors()) {// Si hay errores
+            modelo.addAttribute("mensajeNOK", "El formulario contiene errores");
+            // Suma uno cada vez que pulsamos enviar
+            interaccion++;
+            modelo.addAttribute("interaccion", interaccion);
+            // Pinta Repinatdo el título
+            modelo.addAttribute("titulo", " Repintado");
 
-        usuario = datosFormulario.getUsuario();
-        clave = datosFormulario.getClave();
-        confirmarClave = datosFormulario.getConfirmarClave();
-        pais_seleccionado = datosFormulario.getPaisSeleccionado();
-        prefijoTelefonico = datosFormulario.getPrefijoTelefonico();
+            return "formulario";
+        }
+        // Si no hay errores
+        modelo.addAttribute("mensajeOk", "El formulario no contiene errores");
 
         System.err.println(datosFormulario.toString());
 
 
+        // Pinta Repinatdo el título
+        modelo.addAttribute("titulo", " Repintado");
 
-        modelo.addAttribute("titulo", titulo);
-        modelo.addAttribute("usuario", usuario);
-        modelo.addAttribute("clave", clave);
-        modelo.addAttribute("confirmarClave", confirmarClave);
-        modelo.addAttribute("genero_seleccionado", genero_seleccionado);
-        modelo.addAttribute("pais_seleccionado", pais_seleccionado);
-        modelo.addAttribute("FechaNacimiento", FechaNacimiento);
-        modelo.addAttribute("edad", edad);
-        modelo.addAttribute("peso", peso);
-        modelo.addAttribute("prefijoTelefonico", prefijoTelefonico);
-        modelo.addAttribute("telefono", telefono);
-        modelo.addAttribute("email", email);
-        modelo.addAttribute("url", url);
-        modelo.addAttribute("archivo", archivo);
-        modelo.addAttribute("aficionArray", aficiones_seleccionadas);
-        modelo.addAttribute("musicaArray", musicas_seleccionadas);
-        modelo.addAttribute("licencia", licencia);
-        modelo.addAttribute("comentario", comentario);
-        modelo.addAttribute("archivo", archivo);
-
-//        modelo.addAttribute("interaccion", interacciones);
+        // Suma uno cada vez que pulsamos enviar
+        interaccion++;
+        modelo.addAttribute("interaccion", interaccion);
 
         // Mostrar el mensaje de las coordenadas en la vista
         String coordenadas = coordenadasImage(x,y);
         modelo.addAttribute("coordenadas", coordenadas);
-
 
         return "formulario";
     }
