@@ -25,6 +25,7 @@
                 <input type="hidden" name="interacciones">
 
                 <label for="usuario" th:text="#{Datos-Personales.usuario}" />
+<!--                <input type="text" id="usuario" th:name="${usuario}" th:value="${u}"  />-->
                 <input type="text" id="usuario" th:field="*{usuario}"  />
 
 
@@ -58,8 +59,7 @@
                 <select th:field="*{paisSeleccionado}" id="pais_seleccionado">
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
-                            th:text="${p.value.pais}"
-                            th:selected="${pais_seleccionado == p.key ? 'selected' : false}">
+                            th:text="${p.value.pais}">
                     </option>
                 </select>
 

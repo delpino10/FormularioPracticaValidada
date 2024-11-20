@@ -44,35 +44,32 @@ public class PrincipalController {
     // Envía la plantilla del formulario a rellenar por el usuario
     @GetMapping("devuelve-formulario")
     public String devuelveFormulario(
-            @ModelAttribute ("datosFormulario") DatosFormulario datosFormulario,
-            Model modelo) {
-        // Titulo
-        String titulo = " Original";
-        // Campo Usuario
-        String usuario = "Lola";
-        // Campo Paises
-        String pais_seleccionado ="pt";
-        // Campo Aficiones
-        ArrayList<String> aficionesDefecto = new ArrayList<>();
-        aficionesDefecto.add("D");
-        aficionesDefecto.add("P");
-        aficionesDefecto.add("V");
-        // Campo Músicas
-        ArrayList<String> musicasDefecto = new ArrayList<>();
-        musicasDefecto.add("F");
-        musicasDefecto.add("P");
+            Model modelo,
+            @ModelAttribute ("datosFormulario") DatosFormulario datosFormulario) {
+
+//        // Campo Paises
+//        String pais_seleccionado ="pt";
+//        // Campo Aficiones
+//        ArrayList<String> aficionesDefecto = new ArrayList<>();
+//        aficionesDefecto.add("D");
+//        aficionesDefecto.add("P");
+//        aficionesDefecto.add("V");
+//        // Campo Músicas
+//        ArrayList<String> musicasDefecto = new ArrayList<>();
+//        musicasDefecto.add("F");
+//        musicasDefecto.add("P");
 
 
         // Titulo
-        modelo.addAttribute("titulo", titulo);
-        // Campo Aficiones
-        modelo.addAttribute("aficionesDefecto", aficionesDefecto);
-        // Campo Paises
-        modelo.addAttribute("pais_seleccionado", pais_seleccionado );
-        // CAmpo Música
-        modelo.addAttribute("musicasDefecto", musicasDefecto);
-        // Campo Usuario
-        modelo.addAttribute("usuario", usuario);
+        modelo.addAttribute("titulo", "Original");
+//        // Campo Aficiones
+//        modelo.addAttribute("aficionesDefecto", aficionesDefecto);
+//        // Campo Paises
+//        modelo.addAttribute("pais_seleccionado", pais_seleccionado );
+//        // CAmpo Música
+//        modelo.addAttribute("musicasDefecto", musicasDefecto);
+////        // Campo Usuario
+////        modelo.addAttribute("usuario", "Lola");
         // Campo Licencia
         modelo.addAttribute("licencia", false);
         // Interacciones
@@ -94,7 +91,7 @@ public class PrincipalController {
     // Recibe los parámetros del formulario y los pasa de nuevo a la vista
     @PostMapping("recibeParametrosYRepinta")
     public String recibeParametros(
-            DatosFormulario datosFormulario,
+            @ModelAttribute DatosFormulario datosFormulario,
             @RequestParam(required = false) String usuario,
             @RequestParam(required = false) String clave,
             @RequestParam(required = false) String confirmarClave,
