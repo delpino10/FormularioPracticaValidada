@@ -11,7 +11,10 @@
 
 
 
-    <div> <th:block th:text="${interaccion}"/> </div>
+    <div>
+        <th:block th:text="#{eco-parametros.interacciones}"/>
+        <th:block th:text="${interaccion}"/>
+    </div>
 
     <h1><b>Formulario <th:block th:text="${titulo}" /></b></h1>
 
@@ -22,7 +25,7 @@
             <fieldset>
                 <legend th:text="#{Datos-Personales.DatosPersonales}"></legend>
 
-                <input type="hidden" name="interacciones">
+                <input type="hidden" name="interacciones" value="1">
 
                 <label for="usuario" th:text="#{Datos-Personales.usuario}" />
                 <input type="text" id="usuario" th:field="*{usuario}"  />
@@ -142,7 +145,6 @@
 
                 <label for="archivo" th:text="#{otros-datos.archivo}"></label>
                 <input type="file" th:field="*{archivos}" id="archivo">
->>>>>>> parent of 2352dce (Validación empezada con campo usuario)
         <!-- Muestra el nombre del archivo-->
         <!--<div>  <th:block th:text="${archivo}"/> </div>-->
 

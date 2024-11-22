@@ -53,7 +53,7 @@ public class PrincipalController {
         // Licencia por defecto desactivada
         modelo.addAttribute("licencia", false);
         // Interacciones
-       // modelo.addAttribute("interaccion", interaccion);
+        modelo.addAttribute("interaccion", interaccion);
 
         return "formulario";
     }
@@ -74,6 +74,9 @@ public class PrincipalController {
             @RequestParam(name = "imagen.y", required = false) Integer y,
             Model modelo) {
 
+        // Interacciones
+        interaccion++;
+        modelo.addAttribute("interaccion", interaccion);
         //Título
         modelo.addAttribute("titulo", " Repintado");
 
