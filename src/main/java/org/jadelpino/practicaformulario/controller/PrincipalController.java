@@ -47,30 +47,6 @@ public class PrincipalController {
             Model modelo,
             @ModelAttribute ("datosFormulario") DatosFormulario datosFormulario) {
 
-//        // Campo Paises
-//        String pais_seleccionado ="pt";
-//        // Campo Aficiones
-//        ArrayList<String> aficionesDefecto = new ArrayList<>();
-//        aficionesDefecto.add("D");
-//        aficionesDefecto.add("P");
-//        aficionesDefecto.add("V");
-//        // Campo Músicas
-//        ArrayList<String> musicasDefecto = new ArrayList<>();
-//        musicasDefecto.add("F");
-//        musicasDefecto.add("P");
-
-
-        // Titulo
-        modelo.addAttribute("titulo", "Original");
-//        // Campo Aficiones
-//        modelo.addAttribute("aficionesDefecto", aficionesDefecto);
-//        // Campo Paises
-//        modelo.addAttribute("pais_seleccionado", pais_seleccionado );
-//        // CAmpo Música
-//        modelo.addAttribute("musicasDefecto", musicasDefecto);
-////        // Campo Usuario
-////        modelo.addAttribute("usuario", "Lola");
-        // Campo Licencia
         modelo.addAttribute("licencia", false);
         // Interacciones
        // modelo.addAttribute("interaccion", interaccion);
@@ -91,24 +67,12 @@ public class PrincipalController {
     // Recibe los parámetros del formulario y los pasa de nuevo a la vista
     @PostMapping("recibeParametrosYRepinta")
     public String recibeParametros(
-            @ModelAttribute DatosFormulario datosFormulario,
-            @RequestParam(required = false) String usuario,
-            @RequestParam(required = false) String clave,
-            @RequestParam(required = false) String confirmarClave,
-            @RequestParam(required = false) String genero_seleccionado,
-            @RequestParam(required = false) String pais_seleccionado,
-            @RequestParam(required = false) LocalDate FechaNacimiento,
-            @RequestParam(required = false) Integer edad,
-            @RequestParam(required = false) Float peso,
-            @RequestParam(required = false) String prefijoTelefonico,
-            @RequestParam(required = false) String telefono,
-            @RequestParam(required = false) String email,
-            @RequestParam(required = false) String url,
-            @RequestParam(value = "archivoSubido", required = false) String archivo,
-            @RequestParam(required = false) ArrayList<String> musicas_seleccionadas,
-            @RequestParam(required = false) ArrayList<String> aficiones_seleccionadas,
-            @RequestParam(required = false) String comentario,
-            @RequestParam(required = false) Boolean licencia,
+
+            // @ModelAttribute sirve para pasar datos al modelo de la vista.
+            // Si se quita @ModelAttribute, habría que pasarlo con model.addAttribute
+            // modelo.addAttribute("datos-formulario", datosFormulario);
+            @Valid @ModelAttribute DatosFormulario datosFormulario,
+            BindingResult bindingResult,
             // accedemos al objeto que muestran las coordenadas en x
             @RequestParam(name = "imagen.x", required = false) Integer x,
             // accedemos al objeto que muestran las coordenadas en y
@@ -118,35 +82,11 @@ public class PrincipalController {
         //Título
         String titulo = " Repintado";
 
-        usuario = datosFormulario.getUsuario();
-        clave = datosFormulario.getClave();
-        confirmarClave = datosFormulario.getConfirmarClave();
-        pais_seleccionado = datosFormulario.getPaisSeleccionado();
-        prefijoTelefonico = datosFormulario.getPrefijoTelefonico();
-
         System.err.println(datosFormulario.toString());
 
 
 
         modelo.addAttribute("titulo", titulo);
-        modelo.addAttribute("usuario", usuario);
-        modelo.addAttribute("clave", clave);
-        modelo.addAttribute("confirmarClave", confirmarClave);
-        modelo.addAttribute("genero_seleccionado", genero_seleccionado);
-        modelo.addAttribute("pais_seleccionado", pais_seleccionado);
-        modelo.addAttribute("FechaNacimiento", FechaNacimiento);
-        modelo.addAttribute("edad", edad);
-        modelo.addAttribute("peso", peso);
-        modelo.addAttribute("prefijoTelefonico", prefijoTelefonico);
-        modelo.addAttribute("telefono", telefono);
-        modelo.addAttribute("email", email);
-        modelo.addAttribute("url", url);
-        modelo.addAttribute("archivo", archivo);
-        modelo.addAttribute("aficionArray", aficiones_seleccionadas);
-        modelo.addAttribute("musicaArray", musicas_seleccionadas);
-        modelo.addAttribute("licencia", licencia);
-        modelo.addAttribute("comentario", comentario);
-        modelo.addAttribute("archivo", archivo);
 
 //        modelo.addAttribute("interaccion", interacciones);
 
