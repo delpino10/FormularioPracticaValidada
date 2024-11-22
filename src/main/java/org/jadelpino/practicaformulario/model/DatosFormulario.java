@@ -10,8 +10,8 @@ import java.util.List;
 @Getter @Setter @ToString
 public class DatosFormulario {
 
-    // String Lola como valor por defecto a la vista
-    private String usuario = "Lola";
+
+    private String usuario = "Lola";// String Lola como valor por defecto a la vista
     private String clave;
     private String confirmarClave;
     private String generoSeleccionado;

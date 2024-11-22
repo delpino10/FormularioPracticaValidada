@@ -11,6 +11,7 @@
 
 
 
+<<<<<<< HEAD
     <div>
         <th:block th:text="#{eco-parametros.interacciones}"/>
         <th:block th:text="${interaccion}"/>
@@ -25,11 +26,11 @@
             <fieldset>
                 <legend th:text="#{Datos-Personales.DatosPersonales}"></legend>
 
+
                 <input type="hidden" name="interacciones" value="1">
 
                 <label for="usuario" th:text="#{Datos-Personales.usuario}" />
                 <input type="text" id="usuario" th:field="*{usuario}"  />
-
 
                 <label for="clave" th:text="#{Datos-Personales.clave}" />
                 <input type="password" th:field="*{clave}" id="clave" />
@@ -118,8 +119,8 @@
                             th:field="*{aficionesSeleccionadas}"
                             type="checkbox"
                             th:value="${a.key}"
-
-                            th:checked="${!#lists.isEmpty(aficionesSeleccionadas) && aficionesSeleccionadas.contains(a.key)}"
+                            th:checked="${!#lists.isEmpty(aficionesSeleccionadas)
+                             && aficionesSeleccionadas.contains(a.key)}"
                     />
                     <label for="aficion_seleccionada" th:text="${a.value}">Afición</label>
                 </div>
@@ -135,16 +136,17 @@
                     <option th:each=" m :${lista_musicas}"
                             th:value="${m.key}"
                             th:text="${m.value}"
-                            th:selected="${!#lists.isEmpty(musicasSeleccionadas) && musicasSeleccionadas.contains(m.key)}"
+                            th:selected="${!#lists.isEmpty(musicasSeleccionadas)
+                            && musicasSeleccionadas.contains(m.key)}"
                     />
                 </select>
 
 
             <br/>
         <!-- /* Subir Archivo */ -->
-
                 <label for="archivo" th:text="#{otros-datos.archivo}"></label>
                 <input type="file" th:field="*{archivos}" id="archivo">
+
         <!-- Muestra el nombre del archivo-->
         <!--<div>  <th:block th:text="${archivo}"/> </div>-->
 
@@ -173,7 +175,6 @@
                        th:field="*{licencia}"
                        id="licencia">
                        <!--th:checked="${licencia}"-->
-
             </fieldset>
 
             <br/>

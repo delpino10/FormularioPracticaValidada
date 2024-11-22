@@ -47,7 +47,6 @@ public class PrincipalController {
     public String devuelveFormulario(
             Model modelo,
             @ModelAttribute ("datosFormulario") DatosFormulario datosFormulario) {
-
         // Titulo
         modelo.addAttribute("titulo", "Original");
         // Licencia por defecto desactivada
@@ -89,7 +88,8 @@ public class PrincipalController {
         return "formulario";
     }
 
-
+    
+    
     // Desactiva la peticion del favicon.ico
     @Controller
     static class FaviconController {
@@ -100,21 +100,16 @@ public class PrincipalController {
         }
     }
 
-        // Mostrar el mensaje de las coordenadas en la vista
-    public static String coordenadasImage (Integer x , Integer y){
+
+    // Mostrar el mensaje de las coordenadas en la vista
+    public static String coordenadasImage (Integer x , Integer y) {
         String coordenadas = (x != null && y != null)
                 ? "imagen.x: " + x + " e imagen.y: " + x
                 : "";
         return coordenadas;
     }
 
-    @PostMapping("rec-prueba")
-    public String recPrueba(DatosFormulario datosFormulario, Model modelo) {
 
-        System.err.println(datosFormulario.toString());
-
-        return "formulario";
-    }
 
 
 }
