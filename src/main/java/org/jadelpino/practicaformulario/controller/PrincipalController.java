@@ -72,7 +72,10 @@ public class PrincipalController {
     // Recibe los parámetros del formulario y los pasa de nuevo a la vista
     @PostMapping("recibeParametrosYRepinta")
     public String recibeParametros(
-            @Valid DatosFormulario datosFormulario,
+            // @ModelAttribute sirve para pasar datos al modelo de la vista.
+            // Si se quita @ModelAttribute, habría que pasarlo con model.addAttribute
+            // modelo.addAttribute("datos-formulario", datosFormulario);
+            @Valid @ModelAttribute DatosFormulario datosFormulario,
             BindingResult bindingResult,
             // accedemos al objeto que muestran las coordenadas en x
             @RequestParam(name = "imagen.x", required = false) Integer x,
