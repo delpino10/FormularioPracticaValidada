@@ -1,5 +1,6 @@
 package org.jadelpino.practicaformulario.model;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -8,9 +9,10 @@ import java.util.List;
 
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @ToString
+
 public class DatosFormulario {
 
-
+    @NotBlank(message = "{usuario.notBlank}")
     private String usuario = "Lola";// String Lola como valor por defecto a la vista
     private String clave;
     private String confirmarClave;

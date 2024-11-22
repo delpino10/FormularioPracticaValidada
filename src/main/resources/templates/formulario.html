@@ -5,13 +5,10 @@
 <head>
     <meta charset="utf-8" />
     <title>Práctica Formulario</title>
-    <!--<link rel="stylesheet" th:href="@{/css/estilos.css}">-->
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 
-
-
-<<<<<<< HEAD
     <div>
         <th:block th:text="#{eco-parametros.interacciones}"/>
         <th:block th:text="${interaccion}"/>
@@ -19,25 +16,33 @@
 
     <h1><b>Formulario <th:block th:text="${titulo}" /></b></h1>
 
+    <h3 class="correcto" th:if="${mensajeOK}" th:text="${mensajeOK}"/>
+    <h3 class="error" th:if="${mensajeNOK}" th:text="${mensajeNOK}"/>
+
         <br/>
 
+
         <form action="recibeParametrosYRepinta" method="post" th:object="${datosFormulario}" >
+    <!-- Mostrar errores globales -->
+            <p th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></p>
 <!-- Datos Personales-->
             <fieldset>
                 <legend th:text="#{Datos-Personales.DatosPersonales}"></legend>
 
-
                 <input type="hidden" name="interacciones" value="1">
-
-                <label for="usuario" th:text="#{Datos-Personales.usuario}" />
-                <input type="text" id="usuario" th:field="*{usuario}"  />
-
-                <label for="clave" th:text="#{Datos-Personales.clave}" />
-                <input type="password" th:field="*{clave}" id="clave" />
-
-                <label for="confirmarClave" th:text="#{Datos-Personales.confirmarClave}" />
-                <input type="password" th:field="*{confirmarClave}" id="confirmarClave" />
-
+                <div>
+                    <label for="usuario" th:text="#{Datos-Personales.usuario}" />
+                    <input type="text" id="usuario" th:field="*{usuario}"  />
+                    <p th:each="err : ${#fields.errors('usuario')}" th:text="${err}" class="error"/>
+                </div>
+                <div>
+                    <label for="clave" th:text="#{Datos-Personales.clave}" />
+                    <input type="password" th:field="*{clave}" id="clave" />
+                </div>
+                <div>
+                    <label for="confirmarClave" th:text="#{Datos-Personales.confirmarClave}" />
+                    <input type="password" th:field="*{confirmarClave}" id="confirmarClave" />
+                </div>
                 <br/>
 
             <!--Géneros-->

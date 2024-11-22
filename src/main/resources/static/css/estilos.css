@@ -1,4 +1,12 @@
+.error{
+    color:red;
+    font-weight: bold;
+}
 
+.correcto{
+    color: green;
+    font-weight: bold;
+}
 
 
 

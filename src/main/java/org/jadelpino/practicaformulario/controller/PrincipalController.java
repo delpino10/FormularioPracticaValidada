@@ -73,6 +73,25 @@ public class PrincipalController {
             @RequestParam(name = "imagen.y", required = false) Integer y,
             Model modelo) {
 
+        if(bindingResult.hasErrors()) {
+            String mensajeNOK = "El formulario contiene errores";
+            modelo.addAttribute("mensajeNOK", mensajeNOK);
+            // Interacciones
+            interaccion++;
+            modelo.addAttribute("interaccion", interaccion);
+            //Título
+            modelo.addAttribute("titulo", " Repintado");
+
+            // Mostrar el mensaje de las coordenadas en la vista
+            String coordenadas = coordenadasImage(x,y);
+            modelo.addAttribute("coordenadas", coordenadas);
+            return "formulario";
+        }
+
+        String mensajeOK = "El formulario NO contiene errores";
+        modelo.addAttribute("mensajeOK", mensajeOK);
+
+
         // Interacciones
         interaccion++;
         modelo.addAttribute("interaccion", interaccion);
