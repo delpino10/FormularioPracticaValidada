@@ -5,35 +5,28 @@
 <head>
     <meta charset="utf-8" />
     <title>Práctica Formulario</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <!--<link rel="stylesheet" th:href="@{/css/estilos.css}">-->
 </head>
 <body>
 
 
 
-    <div id="interaccion">
-        <th:block th:text="#{eco-parametros.interacciones}"/>
-        <th:block th:text="${interaccion}"/>
-    </div>
+    <div> <th:block th:text="${interaccion}"/> </div>
 
     <h1><b>Formulario <th:block th:text="${titulo}" /></b></h1>
-    <h3 class="correcto" th:if="${mensajeOk}" th:text="${mensajeOk}"/>
-    <h3 class="error" th:if="${mensajeNOK}" th:text="${mensajeNOK}"/>
 
+        <br/>
 
-    <br/>
-
-    <form action="recibeParametrosYRepinta" method="post" th:object="${datosFormulario}" >
+        <form action="recibeParametrosYRepinta" method="post" th:object="${datosFormulario}" >
 <!-- Datos Personales-->
             <fieldset>
                 <legend th:text="#{Datos-Personales.DatosPersonales}"></legend>
 
                 <input type="hidden" name="interacciones">
-                <div>
-                    <label for="usuario" th:text="#{Datos-Personales.usuario}" />
-                    <input type="text" id="usuario" th:field="*{usuario}"  />
-                    <p th:each="error : ${#fields.errors('usuario')}" th:text="${error}" class="error"/>
-                </div>
+
+                <label for="usuario" th:text="#{Datos-Personales.usuario}" />
+                <input type="text" id="usuario" th:field="*{usuario}"  />
+
 
                 <label for="clave" th:text="#{Datos-Personales.clave}" />
                 <input type="password" th:field="*{clave}" id="clave" />
@@ -53,7 +46,7 @@
                                 th:id="'genero_ '+ ${genero.key}"
                                 th:value="${genero.key}"
                         />
-<!--                    th:checked="${genero_seleccionado == genero.key}"-->
+<!--                                th:checked="${genero_seleccionado == genero.key}"-->
                         <label th:for="'genero_' + ${genero.key}" th:text="${genero.value}"></label>
                     </div>
                 </fieldset>
@@ -65,7 +58,8 @@
                 <select th:field="*{paisSeleccionado}" id="pais_seleccionado">
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
-                            th:text="${p.value.pais}"/>
+                            th:text="${p.value.pais}">
+                    </option>
                 </select>
 
                 <br />
@@ -95,7 +89,8 @@
                 <select th:field="*{prefijoTelefonico}" id="prefijoTelefonicoPais">
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
-                            th:text="${p.value.prefijoTelefonicoPais}"/>
+                            th:text="${p.value.prefijoTelefonicoPais}">
+                    </option>
                 </select>
                 <!--Telefono-->
                 <label for="telefono" th:text="#{Datos-contacto.telefono}" />
@@ -114,66 +109,69 @@
             <fieldset>
                 <legend th:text="#{otros-datos.legend}"></legend>
 
-                <label for="aficion_seleccionada" th:text="#{otros-datos.aficiones}"></label>
                 <div th:each="a : ${lista_aficiones}">
-                    <input  id="aficion_seleccionada"
-                            type="checkbox"
+                    <input
+                            id="aficion_seleccionada"
                             th:field="*{aficionesSeleccionadas}"
+                            type="checkbox"
                             th:value="${a.key}"
-                            th:text="${a.value}"
-                            th:checked="${!#lists.isEmpty(aficionesSeleccionadas) and aficionesSeleccionadas.contains(a.key)}"/>
-                    <!--Añadir !#lists.isEmpty(aficionesSeleccionadas) para que la aplicación no falle,
-                    si el usuario no selecciona ninguna casilla-->
+
+                            th:checked="${!#lists.isEmpty(aficionesSeleccionadas) && aficionesSeleccionadas.contains(a.key)}"
+                    />
+                    <label for="aficion_seleccionada" th:text="${a.value}">Afición</label>
                 </div>
 
+
             <br/>
+
 
         <!--/* Música */-->
-                <label for="musica" th:text="#{otros-datos.musicas}"></label>
-                <div>
-                    <select multiple="multiple" id="musica" th:field="*{musicasSeleccionadas}" >
-                        <option th:each=" m :${lista_musicas}"
-                                th:value="${m.key}"
-                                th:text="${m.value}"
-                                th:selected="${!#lists.isEmpty(musicasSeleccionadas) && musicasSeleccionadas.contains(m.key)}"/>
-                    <!--Añadir !#lists.isEmpty(aficionesSeleccionadas) para que la aplicación no falle,
-                        si el usuario no selecciona ninguna casilla-->
-                    </select>
-                </div>
+                <label for="musica"></label>
+                <select multiple="multiple" th:field="*{musicasSeleccionadas}" id="musica">
+                    <option value="0">Selecciona una Opción</option>
+                    <option th:each=" m :${lista_musicas}"
+                            th:value="${m.key}"
+                            th:text="${m.value}"
+                            th:selected="${!#lists.isEmpty(musicasSeleccionadas) && musicasSeleccionadas.contains(m.key)}"
+                    />
+                </select>
+
 
             <br/>
-
         <!-- /* Subir Archivo */ -->
+
                 <label for="archivo" th:text="#{otros-datos.archivo}"></label>
                 <input type="file" th:field="*{archivos}" id="archivo">
-        <!-- Muestra el nombre del archivo subido-->
+>>>>>>> parent of 2352dce (Validación empezada con campo usuario)
+        <!-- Muestra el nombre del archivo-->
         <!--<div>  <th:block th:text="${archivo}"/> </div>-->
 
             <br/>
-            <br/>
 
         <!--/* Comentario */-->
-                <label for="comentario" th:text="#{otros-datos.comentario}"></label>
-                <div>
-                    <textarea
-                            th:field="*{comentarios}"
-                            id="comentario"
-                            cols="30"
-                            rows="10"
-                            th:placeholder="#{otros-datos.comentarioPH}"
-                    ></textarea>
-                </div>
+                <label for="comentario"></label>
+                <textarea
+                        th:field="*{comentarios}"
+                        id="comentario"
+                        cols="30"
+                        rows="10"
+                        placeholder="Deja tu comentario"
+                ></textarea>
 
             <br/>
+
+
             <br/>
+
+
         <!-- Licencia-->
                 <legend th:text="#{otros-datos.terminos}"></legend>
                 <label for="licencia" th:text="#{otros-datos.licencia}"></label>
                 <input type="checkbox"
                        th:field="*{licencia}"
-                       id="licencia"
-                       th:checked="${licencia}"
-                >
+                       id="licencia">
+                       <!--th:checked="${licencia}"-->
+
             </fieldset>
 
             <br/>
