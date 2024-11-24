@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.jadelpino.practicaformulario.model.Colecciones;
 import org.jadelpino.practicaformulario.model.DatosFormulario;
 import org.jadelpino.practicaformulario.model.Pais;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -73,22 +74,30 @@ public class PrincipalController {
             @RequestParam(name = "imagen.y", required = false) Integer y,
             Model modelo) {
 
+
+        // Método que estiona los errores globales relacionados con null
+        // de los campos
+        erroresGlobales(datosFormulario, bindingResult);
+
         if(bindingResult.hasErrors()) {
-            String mensajeNOK = "El formulario contiene errores";
+            String mensajeNOK = "ALERTA: Formulario con errores";
             modelo.addAttribute("mensajeNOK", mensajeNOK);
+
             // Interacciones
             interaccion++;
             modelo.addAttribute("interaccion", interaccion);
+
             //Título
             modelo.addAttribute("titulo", " Repintado");
 
             // Mostrar el mensaje de las coordenadas en la vista
             String coordenadas = coordenadasImage(x,y);
             modelo.addAttribute("coordenadas", coordenadas);
+
             return "formulario";
         }
 
-        String mensajeOK = "El formulario NO contiene errores";
+        String mensajeOK = "ALELUYA: formualrio sin errores";
         modelo.addAttribute("mensajeOK", mensajeOK);
 
 
@@ -107,17 +116,6 @@ public class PrincipalController {
         return "formulario";
     }
 
-    
-    
-    // Desactiva la peticion del favicon.ico
-    @Controller
-    static class FaviconController {
-
-        @GetMapping("favicon.ico")
-        @ResponseBody
-        void returnNoFavicon() {
-        }
-    }
 
 
     // Mostrar el mensaje de las coordenadas en la vista
@@ -126,6 +124,22 @@ public class PrincipalController {
                 ? "imagen.x: " + x + " e imagen.y: " + x
                 : "";
         return coordenadas;
+    }
+
+    // Gestionar los null
+    public static void erroresGlobales(DatosFormulario datosFormulario,
+                                       BindingResult bindingResult) {
+        if(datosFormulario.getUsuario() == null
+                || datosFormulario.getClave() == null
+                || datosFormulario.getConfirmarClave() == null
+                || datosFormulario.getGeneroSeleccionado() == null
+                || datosFormulario.getGeneroSeleccionado().isEmpty()
+                || datosFormulario.getFechaNacimiento() == null
+                || datosFormulario.getEdad() == null
+                || datosFormulario.getPeso() == null
+        ) {
+            bindingResult.reject("Validacion.error.global");
+        }
     }
 
 
