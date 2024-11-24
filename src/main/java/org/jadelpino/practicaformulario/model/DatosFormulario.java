@@ -31,7 +31,6 @@ public class DatosFormulario {
 
     //@NotBlank(message = "{Validacion.fechaNAc.notBlank}")
     @Past(message = "{Validacion.fechaNAc.Past}")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @FormatoValido
     private LocalDate fechaNacimiento;
 
