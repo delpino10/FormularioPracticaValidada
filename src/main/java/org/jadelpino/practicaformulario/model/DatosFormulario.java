@@ -29,13 +29,17 @@ public class DatosFormulario {
 
     private String paisSeleccionado = "pt";
 
-    //@NotBlank(message = "{Validacion.fechaNAc.notBlank}")
-    @Past(message = "{Validacion.fechaNAc.Past}")
-    @FormatoValido
+    @NotNull(message = "{Validacion.fechaNac.notNull}")
+    @Past(message = "{Validacion.fechaNac.Past}")
+    //@FormatoValido
+    @DateTimeFormat(pattern = "dd/MM/yyyy",
+            iso = DateTimeFormat.ISO.DATE)
     private LocalDate fechaNacimiento;
 
-    @NotNull
+    @NotNull(message = "{Validacion.edad.notBlank}")
     private Integer edad;
+
+    @NotNull(message = "{Validacion.peso.notBlank}")
     private Float peso;
     private String prefijoTelefonico = "fr";
     private String telefono;

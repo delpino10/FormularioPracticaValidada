@@ -97,18 +97,28 @@
             <!--Fecha Nacimiento-->
             <div>
                 <span style="color:red; " >&#42;</span><label for="fechaNacimiento" th:text="#{Datos-Personales.fechaNacimiento}"></label>
-                <input type="text" th:field="*{fechaNacimiento}" id="fechaNacimiento">
+                <input type="text" th:field="*{fechaNacimiento}" id="fechaNacimiento" th:placeholder="#{Datos-Personales.fechaNacimientoPH}">
                 <ul>
                     <li th:each="err : ${#fields.errors('fechaNacimiento')}" th:text="${err}" class="error"/>
                 </ul>
             </div>
             <!--Edad    -->
-            <span style="color:red">&#9654;</span><label for="edad" th:text="#{Datos-Personales.edad}"></label>
-            <input type="text" th:field="*{edad}" id="edad">
+            <div>
+                <span style="color:red">&#9654;</span><label for="edad" th:text="#{Datos-Personales.edad}"></label>
+                <input type="text" th:field="*{edad}" id="edad">
+                <ul>
+                    <li th:each="err : ${#fields.errors('edad')}" th:text="${err}" class="error"/>
+                </ul>
+            </div>
 
             <!--Peso   -->
-            <span style="color:red; " >&#42;</span><label for="peso" th:text="#{Datos-Personales.peso}"></label>
-            <input type="text" th:field="*{peso}" id="peso">
+            <div>
+                <span style="color:red; " >&#42;</span><label for="peso" th:text="#{Datos-Personales.peso}"></label>
+                <input type="text" th:field="*{peso}" id="peso">
+                <ul>
+                    <li th:each="err : ${#fields.errors('peso')}" th:text="${err}" class="error"/>
+                </ul>
+            </div>
         </fieldset>
 
 
