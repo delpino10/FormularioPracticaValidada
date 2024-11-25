@@ -2,7 +2,8 @@ package org.jadelpino.practicaformulario.model;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.jadelpino.practicaformulario.Validaciones.FormatoValido;
+import org.jadelpino.practicaformulario.Validaciones.EdadEqualsFechaNac;
+import org.jadelpino.practicaformulario.Validaciones.FechaNacMasDe18anios;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -11,9 +12,10 @@ import java.util.List;
 
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @ToString
-
+// Valida si los años transcurridos concuerdan con la edad
+@EdadEqualsFechaNac
 public class DatosFormulario {
-    @NotNull(message = "No puede ser nulo")
+    @NotNull
     @NotBlank(message = "{Validacion.usuario.notBlank}")
     private String usuario = "Lola";// String Lola como valor por defecto a la vista
 
@@ -30,15 +32,19 @@ public class DatosFormulario {
     private String paisSeleccionado = "pt";
 
     @NotNull(message = "{Validacion.fechaNac.notNull}")
+    // Valida que la fecha insertada sea anterior a hoy
     @Past(message = "{Validacion.fechaNac.Past}")
-    //@FormatoValido
-    @DateTimeFormat(pattern = "dd/MM/yyyy",
-            iso = DateTimeFormat.ISO.DATE)
+    // Valida que el formato sea dd/MM/yyyy
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    //Valida una fecha de hace más de 18 años
+    @FechaNacMasDe18anios
     private LocalDate fechaNacimiento;
 
-    @NotNull(message = "{Validacion.edad.notBlank}")
+
+    @NotNull(message = "{Validacion.edad.notNull}")
     private Integer edad;
 
+    @Digits(integer = 3, fraction = 2, message = "El número debe tener máximo 3 dígitos enteros y 2 decimales.")
     @NotNull(message = "{Validacion.peso.notBlank}")
     private Float peso;
     private String prefijoTelefonico = "fr";
@@ -64,6 +70,10 @@ public class DatosFormulario {
         musicasSeleccionadas.add("F");
         musicasSeleccionadas.add("P");
         return musicasSeleccionadas;
+    }
+
+    public void setDato(Integer dato) {
+        this.edad = (edad == null) ? 0 : edad;
     }
 }
 
