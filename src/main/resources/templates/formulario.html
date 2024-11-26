@@ -126,22 +126,42 @@
             <legend th:text="#{Datos-contacto.datosContacto}"/>
 
             <!--Prefijo-->
-            <span style="color:red">&#9654;</span><label for="prefijoTelefonicoPais" th:text="#{Datos-contacto.prefijoTelefonico}"/>
-            <select th:field="*{prefijoTelefonico}" id="prefijoTelefonicoPais">
-                <option th:each="p : ${lista_paises}"
-                        th:value="${p.key}"
-                        th:text="${p.value.prefijoTelefonicoPais}">
-                </option>
-            </select>
+            <div>
+                <span style="color:red">&#9654;</span><label for="prefijoTelefonicoPais" th:text="#{Datos-contacto.prefijoTelefonico}"/>
+                <select th:field="*{prefijoTelefonico}" id="prefijoTelefonicoPais">
+                    <option th:each="p : ${lista_paises}"
+                            th:value="${p.key}"
+                            th:text="${p.value.prefijoTelefonicoPais}">
+                    </option>
+                </select>
+                <ul>
+                    <li th:each="err : ${#fields.errors('prefijoTelefonico')}" th:text="${err}" class="error"/>
+                </ul>
+            </div>
             <!--Telefono-->
+            <div>
             <span style="color:red">&#9654;</span><label for="telefono" th:text="#{Datos-contacto.telefono}"/>
             <input type="text" id="telefono" th:field="*{telefono}"/>
+                <ul>
+                    <li th:each="err : ${#fields.errors('telefono')}" th:text="${err}" class="error"/>
+                </ul>
+            </div>
             <!--Email-->
-            <span style="color:red">&#9654;</span><label for="email" th:text="#{Datos-contacto.email}"/>
-            <input type="text" id="email" th:field="*{email}"/>
+            <div>
+                <span style="color:red">&#9654;</span><label for="email" th:text="#{Datos-contacto.email}"/>
+                <input type="text" id="email" th:field="*{email}"/>
+                <ul>
+                    <li th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error"/>
+                </ul>
+            </div>
             <!--Url-->
-            <label for="url" th:text="#{Datos-contacto.url}"/>
-            <input type="text" id="url" th:field="*{url}"/>
+            <div>
+                <label for="url" th:text="#{Datos-contacto.url}"/>
+                <input type="text" id="url" th:field="*{url}"/>
+                <ul>
+                    <li th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error"/>
+                </ul>
+            </div>
         </fieldset>
 
 
@@ -159,53 +179,72 @@
                          && aficionesSeleccionadas.contains(a.key)}"
                 />
                 <label for="aficion_seleccionada" th:text="${a.value}">Afición</label>
+                <ul>
+                    <li th:each="err : ${#fields.errors('aficionesSeleccionadas')}" th:text="${err}" class="error"/>
+                </ul>
             </div>
 
             <br/>
 
         <!--/* Música */-->
-            <label for="musica"></label>
-            <select multiple="multiple" th:field="*{musicasSeleccionadas}" id="musica">
-                <option value="0">Selecciona una Opción</option>
-                <option th:each=" m :${lista_musicas}"
-                        th:value="${m.key}"
-                        th:text="${m.value}"
-                        th:selected="${!#lists.isEmpty(musicasSeleccionadas)
-                        && musicasSeleccionadas.contains(m.key)}"
-                />
-            </select>
+            <div>
+                <label for="musica"></label>
+                <select multiple="multiple" th:field="*{musicasSeleccionadas}" id="musica">
+                    <option value="0">Selecciona una Opción</option>
+                    <option th:each=" m :${lista_musicas}"
+                            th:value="${m.key}"
+                            th:text="${m.value}"
+                            th:selected="${!#lists.isEmpty(musicasSeleccionadas)
+                            && musicasSeleccionadas.contains(m.key)}"
+                    />
+                </select>
+                <ul>
+                    <li th:each="err : ${#fields.errors('musicasSeleccionadas')}" th:text="${err}" class="error"/>
+                </ul>
+            </div>
 
             <br/>
 
         <!-- /* Subir Archivo */ -->
+            <div>
             <label for="archivo" th:text="#{otros-datos.archivo}"></label>
             <input type="file" th:field="*{archivos}" id="archivo">
 
+            </div>
         <!-- Muestra el nombre del archivo-->
         <!--<div>  <th:block th:text="${archivo}"/> </div>-->
 
             <br/>
 
         <!--/* Comentario */-->
-            <label for="comentario"></label>
-            <textarea
-                    th:field="*{comentarios}"
-                    id="comentario"
-                    cols="30"
-                    rows="10"
-                    placeholder="Deja tu comentario"
-            ></textarea>
-
+            <div>
+                <label for="comentario"></label>
+                <textarea
+                        th:field="*{comentarios}"
+                        id="comentario"
+                        cols="30"
+                        rows="10"
+                        placeholder="Deja tu comentario"
+                ></textarea>
+                <ul>
+                    <li th:each="err : ${#fields.errors('comentarios')}" th:text="${err}" class="error"/>
+                </ul>
+            </div>
             <br/>
 
             <br/>
 
         <!-- Licencia-->
+            <div>
                 <label for="licencia" th:text="#{otros-datos.licencia}"></label>
                 <input type="checkbox"
                        th:field="*{licencia}"
                        id="licencia">
                        <!--th:checked="${licencia}"-->
+                <ul>
+                    <li th:each="err : ${#fields.errors('comentarios')}" th:text="${err}" class="error"/>
+                </ul>
+            </div>
         </fieldset>
 
         <br/>

@@ -15,7 +15,7 @@ import java.util.List;
 // Valida si los años transcurridos concuerdan con la edad
 @EdadEqualsFechaNac
 public class DatosFormulario {
-    @NotNull
+    //@NotNull
     @NotBlank(message = "{Validacion.usuario.notBlank}")
     private String usuario = "Lola";// String Lola como valor por defecto a la vista
 
@@ -44,8 +44,8 @@ public class DatosFormulario {
     @NotNull(message = "{Validacion.edad.notNull}")
     private Integer edad;
 
-    @Digits(integer = 3, fraction = 2, message = "El número debe tener máximo 3 dígitos enteros y 2 decimales.")
-    @NotNull(message = "{Validacion.peso.notBlank}")
+    @Digits(integer = 3, fraction = 2, message = "{Validacion.peso.Digits}")
+    @NotNull(message = "{Validacion.peso.notNull}")
     private Float peso;
     private String prefijoTelefonico = "fr";
     private String telefono;
@@ -72,8 +72,6 @@ public class DatosFormulario {
         return musicasSeleccionadas;
     }
 
-    public void setDato(Integer dato) {
-        this.edad = (edad == null) ? 0 : edad;
-    }
+
 }
 

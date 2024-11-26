@@ -4,14 +4,12 @@ import jakarta.validation.Valid;
 import org.jadelpino.practicaformulario.model.Colecciones;
 import org.jadelpino.practicaformulario.model.DatosFormulario;
 import org.jadelpino.practicaformulario.model.Pais;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.Map;
 
 // Controlador Principal
@@ -120,10 +118,10 @@ public class PrincipalController {
 
     // Mostrar el mensaje de las coordenadas en la vista
     public static String coordenadasImage (Integer x , Integer y) {
-        String coordenadas = (x != null && y != null)
+        String coordenates = (x != null && y != null)
                 ? "imagen.x: " + x + " e imagen.y: " + x
                 : "";
-        return coordenadas;
+        return coordenates;
     }
 
     // Gestionar los null
@@ -137,6 +135,7 @@ public class PrincipalController {
                 || datosFormulario.getFechaNacimiento() == null
                 || datosFormulario.getEdad() == null
                 || datosFormulario.getPeso() == null
+                || datosFormulario.getPrefijoTelefonico() == null
         ) {
             bindingResult.reject("Validacion.error.global");
         }
