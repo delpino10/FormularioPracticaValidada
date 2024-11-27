@@ -77,6 +77,11 @@ public class PrincipalController {
         // de los campos
         erroresGlobales(datosFormulario, bindingResult);
 
+        if (datosFormulario.getMusicasSeleccionadas().contains('F')) {
+            bindingResult.rejectValue("musicasSeleccionadas",  "Debe seleccionar al menos la opción '(Vacío)'.");
+            return "formulario";
+        }
+
         if(bindingResult.hasErrors()) {
             String mensajeNOK = "ALERTA: Formulario con errores";
             modelo.addAttribute("mensajeNOK", mensajeNOK);
@@ -98,10 +103,10 @@ public class PrincipalController {
         String mensajeOK = "ALELUYA: formualrio sin errores";
         modelo.addAttribute("mensajeOK", mensajeOK);
 
-
         // Interacciones
         interaccion++;
         modelo.addAttribute("interaccion", interaccion);
+
         //Título
         modelo.addAttribute("titulo", " Repintado");
 
@@ -138,6 +143,7 @@ public class PrincipalController {
                 || datosFormulario.getPeso() == null
                 || datosFormulario.getPrefijoTelefonico() == null
                 || datosFormulario.getTelefono() == null
+                || datosFormulario.getUrl() == null
         ) {
             bindingResult.reject("Validacion.error.global");
         }

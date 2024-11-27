@@ -160,7 +160,7 @@
                 <label for="url" th:text="#{Datos-contacto.url}"/>
                 <input type="text" id="url" th:field="*{url}"/>
                 <ul>
-                    <li th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error"/>
+                    <li th:each="err : ${#fields.errors('url')}" th:text="${err}" class="error"/>
                 </ul>
             </div>
         </fieldset>
@@ -191,7 +191,7 @@
             <div>
                 <label for="musica"></label>
                 <select multiple="multiple" th:field="*{musicasSeleccionadas}" id="musica">
-                    <option value="0">Selecciona una Opción</option>
+                    <option value="">Selecciona una Opción</option>
                     <option th:each=" m :${lista_musicas}"
                             th:value="${m.key}"
                             th:text="${m.value}"

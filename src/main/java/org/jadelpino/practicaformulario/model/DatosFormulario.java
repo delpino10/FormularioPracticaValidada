@@ -15,7 +15,8 @@ import java.util.List;
 // Valida si los años transcurridos concuerdan con la edad
 @EdadEqualsFechaNac
 public class DatosFormulario {
-    @NotBlank(message = "{Validacion.usuario.notBlank}")
+    //@NotBlank(message = "{Validacion.usuario.notBlank}")
+    @NotBlank
     private String usuario = "Lola";// String Lola como valor por defecto a la vista
 
     @NotBlank(message = "{Validacion.clave.notBlank}")
@@ -37,6 +38,7 @@ public class DatosFormulario {
     @NotEmpty(message = "{Validacion.generoSeleccionado.notBlank}")
     private String generoSeleccionado;
 
+    @NotBlank(message = "No puede contener una cadena vacia")
     private String paisSeleccionado = "pt";
 
     @NotNull(message = "{Validacion.fechaNac.notNull}")
@@ -55,9 +57,25 @@ public class DatosFormulario {
     @Digits(integer = 3, fraction = 2, message = "{Validacion.peso.Digits}")
     @NotNull(message = "{Validacion.peso.notNull}")
     private Float peso;
+
     private String prefijoTelefonico = "fr";
+
+    @NotNull
+    @Size(min = 9,
+    message = "{Vaidacion.telefono.Size}")
     private String telefono;
+
+    @Pattern(
+            regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+            message = "{Vaidacion.email.pattern}"
+    )
     private String email;
+
+    @NotNull
+    @Pattern(
+            regexp = "^([a-zA-Z0-9.-]+)\\.([a-zA-Z]{2,})$",
+            message = "{Vaidacion.url.pattern}"
+    )
     private String url;
     private String archivos;
     private List<String> musicasSeleccionadas = musicasDefecto();
