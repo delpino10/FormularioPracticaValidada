@@ -62,7 +62,8 @@
             <br/>
 
             <!--Géneros-->
-                <p th:text="#{Datos-Personales.genero}"><span style="color:red; " >&#42;</span></p>
+              <p></p><span style="color:red;">&#42;</span><span th:text="#{Datos-Personales.genero}"/></p>
+
                 <div th:each="genero : ${lista_generos}">
                     <input
                             type="radio"

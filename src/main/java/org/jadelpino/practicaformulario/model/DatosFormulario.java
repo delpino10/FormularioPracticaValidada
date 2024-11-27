@@ -15,15 +15,23 @@ import java.util.List;
 // Valida si los años transcurridos concuerdan con la edad
 @EdadEqualsFechaNac
 public class DatosFormulario {
-    //@NotNull
     @NotBlank(message = "{Validacion.usuario.notBlank}")
     private String usuario = "Lola";// String Lola como valor por defecto a la vista
 
     @NotBlank(message = "{Validacion.clave.notBlank}")
     @Size(min = 6, max = 12, message= "{Validacion.clave.size}")
+    @Pattern(
+            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&])[A-Za-z\\d!#$%&]{1,}$",
+            message = "{Validacion.clave.CaracterEspecial}"
+    )
     private String clave;
 
     @NotBlank(message = "{Validacion.confirmarClave.notBlank}")
+    @Size(min = 6, max = 12, message= "{Validacion.confirmarClave.size}")
+    @Pattern(
+            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&])[A-Za-z\\d!#$%&]{1,}$",
+            message = "{Validacion.confirmarClave.CaracterEspecial}"
+    )
     private String confirmarClave;
 
     @NotEmpty(message = "{Validacion.generoSeleccionado.notBlank}")

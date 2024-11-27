@@ -132,10 +132,12 @@ public class PrincipalController {
                 || datosFormulario.getConfirmarClave() == null
                 || datosFormulario.getGeneroSeleccionado() == null
                 || datosFormulario.getGeneroSeleccionado().isEmpty()
+                || datosFormulario.getPaisSeleccionado() == null
                 || datosFormulario.getFechaNacimiento() == null
                 || datosFormulario.getEdad() == null
                 || datosFormulario.getPeso() == null
                 || datosFormulario.getPrefijoTelefonico() == null
+                || datosFormulario.getTelefono() == null
         ) {
             bindingResult.reject("Validacion.error.global");
         }
