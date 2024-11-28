@@ -2,8 +2,7 @@ package org.jadelpino.practicaformulario.model;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.jadelpino.practicaformulario.Validaciones.EdadEqualsFechaNac;
-import org.jadelpino.practicaformulario.Validaciones.FechaNacMasDe18anios;
+import org.jadelpino.practicaformulario.Validaciones.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -14,6 +13,7 @@ import java.util.List;
 @Getter @Setter @ToString
 // Valida si los años transcurridos concuerdan con la edad
 @EdadEqualsFechaNac
+
 public class DatosFormulario {
     //@NotBlank(message = "{Validacion.usuario.notBlank}")
     @NotBlank
@@ -38,7 +38,7 @@ public class DatosFormulario {
     @NotEmpty(message = "{Validacion.generoSeleccionado.notBlank}")
     private String generoSeleccionado;
 
-    @NotBlank(message = "No puede contener una cadena vacia")
+    @NotBlank(message = "{Validacion.pais.NotBlank}")
     private String paisSeleccionado = "pt";
 
     @NotNull(message = "{Validacion.fechaNac.notNull}")
@@ -46,12 +46,12 @@ public class DatosFormulario {
     @Past(message = "{Validacion.fechaNac.Past}")
     // Valida que el formato sea dd/MM/yyyy
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    //Valida una fecha de hace más de 18 años
+    //Valida una fecha es de hace más de 18 años
     @FechaNacMasDe18anios
     private LocalDate fechaNacimiento;
 
-
-    @NotNull(message = "{Validacion.edad.notNull}")
+    @NotNull
+            //(message = "{Validacion.edad.notNull}")
     private Integer edad;
 
     @Digits(integer = 3, fraction = 2, message = "{Validacion.peso.Digits}")
@@ -72,17 +72,27 @@ public class DatosFormulario {
     private String email;
 
     @NotNull
-    @Pattern(
-            regexp = "^([a-zA-Z0-9.-]+)\\.([a-zA-Z]{2,})$",
-            message = "{Vaidacion.url.pattern}"
-    )
+    @Url
     private String url;
+
+    @NotNull
+    @ArchivoExtension
     private String archivos;
+
+    @NotEmpty(message = "{Validacion.unTipoMusica.contains}")
     private List<String> musicasSeleccionadas = musicasDefecto();
+
+    @DosAficiones
     private List<String> aficionesSeleccionadas = aficionesDefecto();
+
+    //@NotNull
+    @ComentarioVacio
     private String comentarios;
+
+    @NotNull
     private Boolean licencia;
 
+    // List con valores por defecto de Aficiones
     private List<String> aficionesDefecto(){
         aficionesSeleccionadas = new ArrayList<>();
         aficionesSeleccionadas.add("D");
@@ -90,7 +100,7 @@ public class DatosFormulario {
         aficionesSeleccionadas.add("V");
         return aficionesSeleccionadas;
     }
-
+    // List con valores por defecto de tipos de Musica
     private List<String> musicasDefecto(){
         musicasSeleccionadas = new ArrayList<>();
         musicasSeleccionadas.add("F");

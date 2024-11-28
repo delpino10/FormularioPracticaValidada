@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 // Controlador Principal
@@ -66,6 +68,8 @@ public class PrincipalController {
             // modelo.addAttribute("datos-formulario", datosFormulario);
             @Valid @ModelAttribute DatosFormulario datosFormulario,
             BindingResult bindingResult,
+            // accedemos al nombre del archivo subido
+            @RequestParam(value = "archivos", required = false) String archivo,
             // accedemos al objeto que muestran las coordenadas en x
             @RequestParam(name = "imagen.x", required = false) Integer x,
             // accedemos al objeto que muestran las coordenadas en y
@@ -73,15 +77,11 @@ public class PrincipalController {
             Model modelo) {
 
 
-        // Método que estiona los errores globales relacionados con null
+        // Método que gestiona los errores globales relacionados con null
         // de los campos
         erroresGlobales(datosFormulario, bindingResult);
 
-        if (datosFormulario.getMusicasSeleccionadas().contains('F')) {
-            bindingResult.rejectValue("musicasSeleccionadas",  "Debe seleccionar al menos la opción '(Vacío)'.");
-            return "formulario";
-        }
-
+        // Si hay errores
         if(bindingResult.hasErrors()) {
             String mensajeNOK = "ALERTA: Formulario con errores";
             modelo.addAttribute("mensajeNOK", mensajeNOK);
@@ -97,9 +97,13 @@ public class PrincipalController {
             String coordenadas = coordenadasImage(x,y);
             modelo.addAttribute("coordenadas", coordenadas);
 
+            // Mostrar el nombre del archivo
+            modelo.addAttribute("archivo", archivo);
+
             return "formulario";
         }
 
+        // Muestra el mensaje cuando el formulario no contiene errores
         String mensajeOK = "ALELUYA: formualrio sin errores";
         modelo.addAttribute("mensajeOK", mensajeOK);
 
@@ -110,40 +114,46 @@ public class PrincipalController {
         //Título
         modelo.addAttribute("titulo", " Repintado");
 
-        // Mostrar el mensaje de las coordenadas en la vista
+        // Mostrar el mensaje de las coordenadas de la imagen en la vista
         String coordenadas = coordenadasImage(x,y);
         modelo.addAttribute("coordenadas", coordenadas);
 
+        // Mostrar el nombre del archivo
+        modelo.addAttribute("archivo", archivo);
+
+        // Comprueba que los datos han llegado al servidor
         System.err.println(datosFormulario.toString());
 
         return "formulario";
     }
 
 
-
     // Mostrar el mensaje de las coordenadas en la vista
     public static String coordenadasImage (Integer x , Integer y) {
-        String coordenates = (x != null && y != null)
+        String coordenadas = (x != null && y != null)
                 ? "imagen.x: " + x + " e imagen.y: " + x
                 : "";
-        return coordenates;
+        return coordenadas;
     }
 
-    // Gestionar los null
+    // Gestionar los null para mostrar el mensaje de error Global
     public static void erroresGlobales(DatosFormulario datosFormulario,
                                        BindingResult bindingResult) {
-        if(datosFormulario.getUsuario() == null
-                || datosFormulario.getClave() == null
-                || datosFormulario.getConfirmarClave() == null
-                || datosFormulario.getGeneroSeleccionado() == null
+        if((datosFormulario.getUsuario() == null)
+                || (datosFormulario.getClave() == null)
+                || (datosFormulario.getConfirmarClave() == null)
+                || (datosFormulario.getGeneroSeleccionado() == null)
                 || datosFormulario.getGeneroSeleccionado().isEmpty()
-                || datosFormulario.getPaisSeleccionado() == null
-                || datosFormulario.getFechaNacimiento() == null
-                || datosFormulario.getEdad() == null
-                || datosFormulario.getPeso() == null
-                || datosFormulario.getPrefijoTelefonico() == null
-                || datosFormulario.getTelefono() == null
-                || datosFormulario.getUrl() == null
+                || (datosFormulario.getPaisSeleccionado() == null)
+                || (datosFormulario.getFechaNacimiento() == null)
+                || (datosFormulario.getEdad() == null)
+                || (datosFormulario.getPeso() == null)
+                || (datosFormulario.getPrefijoTelefonico() == null)
+                || (datosFormulario.getTelefono() == null)
+                || (datosFormulario.getUrl() == null)
+                || (datosFormulario.getArchivos() == null)
+                || (datosFormulario.getComentarios() == null)
+                || (datosFormulario.getLicencia() == null)
         ) {
             bindingResult.reject("Validacion.error.global");
         }

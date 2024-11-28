@@ -208,12 +208,17 @@
 
         <!-- /* Subir Archivo */ -->
             <div>
-            <label for="archivo" th:text="#{otros-datos.archivo}"></label>
-            <input type="file" th:field="*{archivos}" id="archivo">
-
+                <span style="color:red">&#9654;</span><label for="archivo" th:text="#{otros-datos.archivo}"></label>
+                <input type="file" multiple="multiple" th:field="*{archivos}" id="archivo">
+                <ul>
+                    <li th:each="err : ${#fields.errors('archivos')}" th:text="${err}" class="error"/>
+                </ul>
             </div>
-        <!-- Muestra el nombre del archivo-->
-        <!--<div>  <th:block th:text="${archivo}"/> </div>-->
+         <!--Muestra el nombre del archivo subido-->
+         <div>
+             <span>Archivo subido:</span>
+             <th:block th:text="${archivo}"/>
+         </div>
 
             <br/>
 
@@ -243,7 +248,7 @@
                        id="licencia">
                        <!--th:checked="${licencia}"-->
                 <ul>
-                    <li th:each="err : ${#fields.errors('comentarios')}" th:text="${err}" class="error"/>
+                    <li th:each="err : ${#fields.errors('licencia')}" th:text="${err}" class="error"/>
                 </ul>
             </div>
         </fieldset>
