@@ -36,6 +36,7 @@ public class DatosFormulario {
     private String confirmarClave;
 
     @NotEmpty(message = "{Validacion.generoSeleccionado.notBlank}")
+    // @Pattern
     private String generoSeleccionado;
 
     @NotBlank(message = "{Validacion.pais.NotBlank}")
@@ -58,6 +59,7 @@ public class DatosFormulario {
     @NotNull(message = "{Validacion.peso.notNull}")
     private Float peso;
 
+    //@Pattern que no sea fr..
     private String prefijoTelefonico = "fr";
 
     @NotNull
@@ -73,20 +75,23 @@ public class DatosFormulario {
 
     @NotNull
     @Url
+    //@Pattern
     private String url;
 
     @NotNull
     @ArchivoExtension
     private String archivos;
-
+    @Size(min=1)
     @NotEmpty(message = "{Validacion.unTipoMusica.contains}")
+
     private List<String> musicasSeleccionadas = musicasDefecto();
 
-    @DosAficiones
+    //@DosAficiones
+    @Size(min=2)
     private List<String> aficionesSeleccionadas = aficionesDefecto();
 
-    //@NotNull
-    @ComentarioVacio
+    @NotNull
+    //@ComentarioVacio
     private String comentarios;
 
     @NotNull
