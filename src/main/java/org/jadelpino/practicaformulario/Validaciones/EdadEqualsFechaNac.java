@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 
 @Constraint(validatedBy = EdadEqualsFechaNac_Validator.class)
-@Target({TYPE_USE, TYPE, METHOD })
+@Target({TYPE_USE, TYPE, METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EdadEqualsFechaNac {
     String message() default "{Validacion.edad.EdadEqualsFechaNac}";

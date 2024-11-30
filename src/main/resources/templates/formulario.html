@@ -24,7 +24,7 @@
         <br/>
 
 
-    <form action="recibeParametrosYRepinta" method="post" th:object="${datosFormulario}" >
+    <form action="recibeParametrosYRepinta" method="post" th:object="${datosFormulario}" id="formulario">
         <!-- Mostrar errores globales -->
         <div th:if="${#fields.hasGlobalErrors()}">
             <p style="color: red;" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
@@ -62,7 +62,7 @@
             <br/>
 
             <!--Géneros-->
-              <p></p><span style="color:red;">&#42;</span><span th:text="#{Datos-Personales.genero}"/></p>
+              <p><span style="color:red;">&#42;</span><span th:text="#{Datos-Personales.genero}"/></p>
 
                 <div th:each="genero : ${lista_generos}">
                     <input
@@ -185,6 +185,10 @@
                 </ul>
             </div>
 
+            <input type="button" value="Deseleccionar Aficiones" onclick="deseleccionarAficiones()">
+            <input type="button" value="Seleccionar Aficiones" onclick="seleccionarAficiones()">
+
+            <br/>
             <br/>
 
         <!--/* Música */-->
@@ -204,6 +208,10 @@
                 </ul>
             </div>
 
+            <input type="button" value="Deseleccionar Músicas" onclick="deseleccionarMusica()">
+            <input type="button" value="Seleccionar Músicas" onclick="seleccionarMusica()">
+
+            <br/>
             <br/>
 
         <!-- /* Subir Archivo */ -->
@@ -255,7 +263,7 @@
 
         <br/>
 
-        <fieldset/>
+        <fieldset>
         <legend th:text="#{operaciones-Formulario.legend}"/>
         <!--Imagen-->
         <input type="image"
@@ -272,7 +280,7 @@
     <!--Botones enviar, reestablecer y Vaciar Campos-->
         <input type="submit" value="Enviar">
         <input type="reset" value="Resetear">
-        <input type="reset" value="Resetear">
+        <input type="button" value="Vaciar" onclick="vaciarFormulario()">
         </fieldset>
     </form>
 
