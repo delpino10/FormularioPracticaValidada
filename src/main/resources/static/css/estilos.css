@@ -13,9 +13,16 @@
     font-size: 1em;
 }
 
+.informacion-cliente ul li{
+    list-style: none;
+    display: inline;
+}
+
 span{
     font-size: 1.3em;
 }
+
+select#pais_seleccionado option[value="fr"]   { background-image:url(../img/espania.jpg);   }
 
 
 

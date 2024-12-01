@@ -48,7 +48,8 @@
                 </ul>
             </div>
             <div>
-                <span style="color:red">&#42;</span><label for="confirmarClave" th:text="#{Datos-Personales.confirmarClave}"/>
+                <span style="color:red">&#42;</span><label for="confirmarClave"
+                                                           th:text="#{Datos-Personales.confirmarClave}"/>
                 <input type="password" th:field="*{confirmarClave}" id="confirmarClave"/>
                 <ul>
                     <li th:each="err : ${#fields.errors('confirmarClave')}" th:text="${err}" class="error"/>
@@ -62,18 +63,18 @@
             <br/>
 
             <!--Géneros-->
-              <p><span style="color:red;">&#42;</span><span th:text="#{Datos-Personales.genero}"/></p>
+            <p><span style="color:red;">&#42;</span><span th:text="#{Datos-Personales.genero}"/></p>
 
-                <div th:each="genero : ${lista_generos}">
-                    <input
-                            type="radio"
-                            th:field="*{generoSeleccionado}"
-                            th:value="${genero.key}">
-                    <label th:for="'genero_' + ${genero.key}" th:text="${genero.value}"/>
-                    <ul>
-                        <li th:each="err : ${#fields.errors('generoSeleccionado')}" th:text="${err}" class="error"/>
-                    </ul>
-                </div>
+            <div th:each="genero : ${lista_generos}">
+                <input
+                        type="radio"
+                        th:field="*{generoSeleccionado}"
+                        th:value="${genero.key}">
+                <label th:for="'genero_' + ${genero.key}" th:text="${genero.value}"/>
+                <ul>
+                    <li th:each="err : ${#fields.errors('generoSeleccionado')}" th:text="${err}" class="error"/>
+                </ul>
+            </div>
             <!--boton ver deseleccionar Radio-->
             <input type="button"
                    id="deseleccionarRadios"
@@ -84,21 +85,24 @@
             <br/>
 
             <!--/* Paises */-->
-            <span style="color:red; " >&#42;</span><label for="pais_seleccionado" th:text="#{Datos-Personales.pais}"></label>
-            <select th:field="*{paisSeleccionado}" id="pais_seleccionado">
-                <option th:each="p : ${lista_paises}"
-                        th:value="${p.key}"
-                        th:text="${p.value.pais}">
-                </option>
-            </select>
-
+            <div>
+                <span style="color:red; ">&#42;</span><label for="pais_seleccionado" th:text="#{Datos-Personales.pais}"></label>
+                <select th:field="*{paisSeleccionado}" id="pais_seleccionado" >
+                    <option th:each="p : ${lista_paises}"
+                            th:value="${p.key}"
+                            th:text="${p.value.pais}">
+                    </option>
+                </select>
+            </div>
             <br/>
             <br/>
 
             <!--Fecha Nacimiento-->
             <div>
-                <span style="color:red; " >&#42;</span><label for="fechaNacimiento" th:text="#{Datos-Personales.fechaNacimiento}"></label>
-                <input type="text" th:field="*{fechaNacimiento}" id="fechaNacimiento" th:placeholder="#{Datos-Personales.fechaNacimientoPH}">
+                <span style="color:red; ">&#42;</span><label for="fechaNacimiento"
+                                                             th:text="#{Datos-Personales.fechaNacimiento}"></label>
+                <input type="text" th:field="*{fechaNacimiento}" id="fechaNacimiento"
+                       th:placeholder="#{Datos-Personales.fechaNacimientoPH}">
                 <ul>
                     <li th:each="err : ${#fields.errors('fechaNacimiento')}" th:text="${err}" class="error"/>
                 </ul>
@@ -114,21 +118,19 @@
 
             <!--Peso   -->
             <div>
-                <span style="color:red; " >&#42;</span><label for="peso" th:text="#{Datos-Personales.peso}"></label>
+                <span style="color:red; ">&#42;</span><label for="peso" th:text="#{Datos-Personales.peso}"></label>
                 <input type="text" th:field="*{peso}" id="peso">
                 <ul>
                     <li th:each="err : ${#fields.errors('peso')}" th:text="${err}" class="error"/>
                 </ul>
             </div>
-        </fieldset>
 
-
-        <fieldset>
             <legend th:text="#{Datos-contacto.datosContacto}"/>
 
             <!--Prefijo-->
             <div>
-                <span style="color:red">&#9654;</span><label for="prefijoTelefonicoPais" th:text="#{Datos-contacto.prefijoTelefonico}"/>
+                <span style="color:red">&#9654;</span><label for="prefijoTelefonicoPais"
+                                                             th:text="#{Datos-contacto.prefijoTelefonico}"/>
                 <select th:field="*{prefijoTelefonico}" id="prefijoTelefonicoPais">
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
@@ -141,8 +143,8 @@
             </div>
             <!--Telefono-->
             <div>
-            <span style="color:red">&#9654;</span><label for="telefono" th:text="#{Datos-contacto.telefono}"/>
-            <input type="text" id="telefono" th:field="*{telefono}"/>
+                <span style="color:red">&#9654;</span><label for="telefono" th:text="#{Datos-contacto.telefono}"/>
+                <input type="text" id="telefono" th:field="*{telefono}"/>
                 <ul>
                     <li th:each="err : ${#fields.errors('telefono')}" th:text="${err}" class="error"/>
                 </ul>
@@ -224,8 +226,8 @@
             </div>
          <!--Muestra el nombre del archivo subido-->
          <div>
-             <span>Archivo subido:</span>
-             <th:block th:text="${archivo}"/>
+             <th:block th:if="${archivo}" th:text="#{otros-datos.nombreArchivo}"/>
+             <th:block th:if="${archivo}" th:text="${archivo}"/>
          </div>
 
             <br/>

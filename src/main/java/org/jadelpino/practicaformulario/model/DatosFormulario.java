@@ -20,7 +20,6 @@ public class DatosFormulario {
     private String usuario = "Lola";// String Lola como valor por defecto a la vista
 
     @NotBlank
-            //(message = "{Validacion.clave.notBlank}")
     @Size(min = 6, max = 12, message= "{Validacion.clave.size}")
     @Pattern(
             regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&])[A-Za-z\\d!#$%&]{1,}$",
@@ -38,11 +37,11 @@ public class DatosFormulario {
 
     //@NotEmpty(message = "{Validacion.generoSeleccionado.notBlank}")
 
+    @NotNull
     @Pattern(
             regexp = "^(M|F|O)$",
             message = "{Validacion.generoSeleccionado.notBlank}"
     )
-    @NotNull
     private String generoSeleccionado;
 
 
@@ -62,35 +61,35 @@ public class DatosFormulario {
     private LocalDate fechaNacimiento;
 
     @NotNull
+    //@ValidarEdad
     private Integer edad;
 
-    @Digits(integer = 3, fraction = 2, message = "{Validacion.peso.Digits}")
     @NotNull
+    @Digits(integer = 3, fraction = 2, message = "{Validacion.peso.Digits}")
     private Float peso;
 
-    @NotBlank
+
     @NotNull
     @Pattern(
             regexp = "^(pt|es|fr|uk|it)$",
-            message = "El valor debe ser uno de los siguientes: pt, es, fr, uk o it")
+            message = "{Validacion.prefijoSeleccionado.notBlank}")
     private String prefijoTelefonico = "fr";
 
     @NotNull
-    @NotBlank
     @Size(min = 9, message = "{Vaidacion.telefono.Size}")
     private String telefono;
 
+    @NotNull
     @Pattern(
             regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
             message = "{Vaidacion.email.pattern}"
     )
-    @NotNull
     private String email;
 
-    //@Url
+
+    @NotNull
     @Pattern(regexp = "^www\\.[a-zA-Z0-9-]+\\.[a-zA-Z]{2,}$",
     message = "{Vaidacion.url.pattern}")
-    @NotNull
     private String url;
 
     @NotNull

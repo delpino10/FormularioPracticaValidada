@@ -70,8 +70,9 @@ public class PrincipalController {
             // modelo.addAttribute("datos-formulario", datosFormulario);
             @Valid @ModelAttribute DatosFormulario datosFormulario,
             BindingResult bindingResult,
+            @RequestParam (required = false)String edad,
             // accedemos al nombre del archivo subido
-            @RequestParam(value = "archivos", required = false) String archivo,
+            @RequestParam(value = "archivos") String archivo,
             // accedemos al objeto que muestran las coordenadas en x
             @RequestParam(name = "imagen.x", required = false) Integer x,
             // accedemos al objeto que muestran las coordenadas en y
@@ -101,6 +102,7 @@ public class PrincipalController {
 
             // Mostrar el nombre del archivo
             modelo.addAttribute("archivo", archivo);
+            System.err.println(datosFormulario.toString());
 
             return "formulario";
         }
@@ -186,6 +188,11 @@ public class PrincipalController {
         model.addAttribute("localePrincipal", localePrincipal.toString());
 
         return "Cabecera";
+    }
+
+    @PostMapping("dar-alta")
+    public String darAlta(){
+        return "dar-alta-usuario";
     }
 
     // Método para extraer el sistema operativo del User-Agent

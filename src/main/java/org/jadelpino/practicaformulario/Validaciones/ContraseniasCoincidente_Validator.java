@@ -8,8 +8,6 @@ public class ContraseniasCoincidente_Validator implements ConstraintValidator <C
     @Override
     public boolean isValid(DatosFormulario datosFormulario, ConstraintValidatorContext constraintValidatorContext) {
 
-        DatosFormulario datos = (DatosFormulario) datosFormulario;
-
-        return datos.getClave().equals(datos.getConfirmarClave());
+        return ((DatosFormulario) datosFormulario).getClave().equals(((DatosFormulario) datosFormulario).getConfirmarClave());
     }
 }
