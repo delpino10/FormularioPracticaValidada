@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Cabecera</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+    <div class="informacion-cliente">
+        <ul>
+            <li><strong>Dirección Ip del Cliente HTTP </strong> <span><code th:text="${direccionIp}"/> </span></li>
+            <li><b>Navegador usado en el cliente HTTP</b>  <span><code th:text="${navegador}"/> </span></li>
+            <li><b>Sistema Operativo donde se ejecuta el navegador</b>  <span><code th:text="${SO}"/> </span></li>
+            <li><b>Motor de renderizado usado por el Navegador</b>  <span><code th:text="${renderizado}"/> </span></li>
+            <li><b>Nombre del Host solicitado por el cliente HTTP</b>  <span><code th:text="${hostSolicitado}"/> </span></li>
+            <li><b>Idioma y <i>locale</i> preferidos por el cliente HTTP</b>  <span><code th:text="${localePrincipal}"/></span> </li>
+        </ul>
+    </div>
+
+</body>
+</html>
