@@ -2,6 +2,7 @@ package org.jadelpino.practicaformulario.model;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.hibernate.validator.constraints.Range;
 import org.jadelpino.practicaformulario.Validaciones.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -61,7 +62,8 @@ public class DatosFormulario {
     private LocalDate fechaNacimiento;
 
     @NotNull
-    //@ValidarEdad
+    @Min(18)
+    @Max(67)
     private Integer edad;
 
     @NotNull
