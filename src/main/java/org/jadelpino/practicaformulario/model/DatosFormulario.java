@@ -2,7 +2,6 @@ package org.jadelpino.practicaformulario.model;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.hibernate.validator.constraints.Range;
 import org.jadelpino.practicaformulario.Validaciones.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,9 +11,9 @@ import java.util.List;
 
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @ToString
-// Valida si los años transcurridos concuerdan con la edad
+// Válida si los años transcurridos concuerdan con la edad
 @EdadEqualsFechaNac
-// Valida que las contraseñas sean iguales
+// Válida que las contraseñas sean iguales
 @ContraseniasCoincidente
 public class DatosFormulario {
     @NotBlank
@@ -40,7 +39,7 @@ public class DatosFormulario {
 
     @NotNull
     @Pattern(
-            regexp = "^(M|F|O)$",
+            regexp = "^([MFO])$",
             message = "{Validacion.generoSeleccionado.notBlank}"
     )
     private String generoSeleccionado;
@@ -61,7 +60,7 @@ public class DatosFormulario {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaNacimiento;
 
-    @NotNull
+
     @Min(18)
     @Max(67)
     private Integer edad;
@@ -71,17 +70,17 @@ public class DatosFormulario {
     private Float peso;
 
 
-    @NotNull
+
     @Pattern(
             regexp = "^(pt|es|fr|uk|it)$",
             message = "{Validacion.prefijoSeleccionado.notBlank}")
     private String prefijoTelefonico = "fr";
 
-    @NotNull
+
     @Size(min = 9, message = "{Vaidacion.telefono.Size}")
     private String telefono;
 
-    @NotNull
+
     @Pattern(
             regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
             message = "{Vaidacion.email.pattern}"

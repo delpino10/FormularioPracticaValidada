@@ -11,8 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -49,7 +47,10 @@ public class PrincipalController {
     @GetMapping("devuelve-formulario")
     public String devuelveFormulario(
             Model modelo,
-            @ModelAttribute ("datosFormulario") DatosFormulario datosFormulario) {
+            @ModelAttribute ("datosFormulario") DatosFormulario datosFormulario,
+            HttpServletRequest request) {
+        // Información del Cliente en la cabecera
+        informacionCliente(request,modelo);
         // Titulo
         modelo.addAttribute("titulo", "Original");
         // Licencia por defecto desactivada
@@ -57,7 +58,7 @@ public class PrincipalController {
         // Interacciones
         modelo.addAttribute("interaccion", interaccion);
 
-        return "formulario";
+        return "dar-alta-usuario";
     }
 
 
@@ -70,7 +71,8 @@ public class PrincipalController {
             // modelo.addAttribute("datos-formulario", datosFormulario);
             @Valid @ModelAttribute DatosFormulario datosFormulario,
             BindingResult bindingResult,
-            @RequestParam (required = false)String edad,
+            // Accedemos a los datos de la cabecera
+            HttpServletRequest request,
             // accedemos al nombre del archivo subido
             @RequestParam(value = "archivos") String archivo,
             // accedemos al objeto que muestran las coordenadas en x
@@ -79,56 +81,54 @@ public class PrincipalController {
             @RequestParam(name = "imagen.y", required = false) Integer y,
             Model modelo) {
 
+            // Mensaje de error
+            String mensajeNOK = "ALERTA: Formulario con errores";
+            // Muestra el mensaje cuando el formulario no contiene errores
+            String mensajeOK = "ALELUYA: formualrio sin errores";
+            // Mostrar el mensaje de las coordenadas en la vista
+            String coordenadas = coordenadasImage(x,y);
 
+        // Información del Cliente en la cabecera
+        informacionCliente(request, modelo);
         // Método que gestiona los errores globales relacionados con null
         // de los campos
         erroresGlobales(datosFormulario, bindingResult);
 
         // Si hay errores
         if(bindingResult.hasErrors()) {
-            String mensajeNOK = "ALERTA: Formulario con errores";
-            modelo.addAttribute("mensajeNOK", mensajeNOK);
-
             // Interacciones
             interaccion++;
+            // Renderiza interacciones
             modelo.addAttribute("interaccion", interaccion);
-
-            //Título
+            // Título
             modelo.addAttribute("titulo", " Repintado");
-
-            // Mostrar el mensaje de las coordenadas en la vista
-            String coordenadas = coordenadasImage(x,y);
-            modelo.addAttribute("coordenadas", coordenadas);
-
+            // Renderiza mensaje de Error
+            modelo.addAttribute("mensajeNOK", mensajeNOK);
             // Mostrar el nombre del archivo
             modelo.addAttribute("archivo", archivo);
+            // Renderiza las coordenadas de la imagen
+            modelo.addAttribute("coordenadas", coordenadas);
+//             Comprueba que los datos han llegado al servidor
             System.err.println(datosFormulario.toString());
 
-            return "formulario";
+            return "dar-alta-usuario";
         }
-
-        // Muestra el mensaje cuando el formulario no contiene errores
-        String mensajeOK = "ALELUYA: formualrio sin errores";
-        modelo.addAttribute("mensajeOK", mensajeOK);
 
         // Interacciones
         interaccion++;
-        modelo.addAttribute("interaccion", interaccion);
-
-        //Título
-        modelo.addAttribute("titulo", " Repintado");
-
-        // Mostrar el mensaje de las coordenadas de la imagen en la vista
-        String coordenadas = coordenadasImage(x,y);
-        modelo.addAttribute("coordenadas", coordenadas);
-
-        // Mostrar el nombre del archivo
-        modelo.addAttribute("archivo", archivo);
 
         // Comprueba que los datos han llegado al servidor
         System.err.println(datosFormulario.toString());
 
-        return "formulario";
+        //Título
+        modelo.addAttribute("titulo", " Repintado");
+        modelo.addAttribute("interaccion", interaccion);
+        modelo.addAttribute("mensajeOK", mensajeOK);
+        // Mostrar el nombre del archivo
+        modelo.addAttribute("archivo", archivo);
+        modelo.addAttribute("coordenadas", coordenadas);
+
+        return "dar-alta-usuario";
     }
 
     // Mostrar el mensaje de las coordenadas en la vista
@@ -164,8 +164,8 @@ public class PrincipalController {
 
     // #################### Informacion Cliente ##########################
 
-    @GetMapping("informacion")
-    public String informacion(HttpServletRequest request, Model model) {
+    //@GetMapping("informacion")
+    public void informacionCliente(HttpServletRequest request, Model model) {
         // Obtener la dirección IP del cliente
         String DireccionIp = request.getRemoteAddr();
         // Obtener la información del navegador
@@ -179,7 +179,6 @@ public class PrincipalController {
         // Obtener el idioma y locale principal
         Locale localePrincipal = request.getLocale();
 
-
         model.addAttribute("direccionIp", DireccionIp);
         model.addAttribute("navegador", navegador);
         model.addAttribute("SO", SO);
@@ -187,13 +186,9 @@ public class PrincipalController {
         model.addAttribute("hostSolicitado", hostSolicitado);
         model.addAttribute("localePrincipal", localePrincipal.toString());
 
-        return "Cabecera";
     }
 
-    @PostMapping("dar-alta")
-    public String darAlta(){
-        return "dar-alta-usuario";
-    }
+
 
     // Método para extraer el sistema operativo del User-Agent
     private String obtenerSistemaOperativo(String userAgent) {

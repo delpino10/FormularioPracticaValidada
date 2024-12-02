@@ -8,9 +8,9 @@
 </head>
 <body>
 
-    <div class="informacion-cliente">
+    <div class="informacion-cliente" >
         <ul>
-            <li><strong>Dirección Ip del Cliente HTTP </strong> <span><code th:text="${direccionIp}"/> </span></li>
+            <li><strong>Dirección Ip del Cliente HTTP </strong> <span><th:block th:text="${direccionIp}"/> </span></li>
             <li><b>Navegador usado en el cliente HTTP</b>  <span><code th:text="${navegador}"/> </span></li>
             <li><b>Sistema Operativo donde se ejecuta el navegador</b>  <span><code th:text="${SO}"/> </span></li>
             <li><b>Motor de renderizado usado por el Navegador</b>  <span><code th:text="${renderizado}"/> </span></li>
