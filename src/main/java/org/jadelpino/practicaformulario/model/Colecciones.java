@@ -1,15 +1,21 @@
 package org.jadelpino.practicaformulario.model;
 
+import lombok.Getter;
+
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Colecciones {
+    @Getter
     private static final Map<String, String> listaGeneros = new TreeMap<>();
 
+    @Getter
     private static final Map<String, String> listaAficiones = new TreeMap<>();
 
+    @Getter
     private static final Map<String, Pais> listaPaises = new TreeMap<>();
 
+    @Getter
     private static final Map<String, String> listaMusicas = new TreeMap<>();
 
 
@@ -37,19 +43,5 @@ public class Colecciones {
     }
 
 
-    public static Map<String, String> getListaGeneros() {
-        return listaGeneros;
-    }
 
-    public static Map<String, String> getListaAficiones() {
-        return listaAficiones;
-    }
-
-    public static Map<String, Pais> getListaPaises() {
-        return listaPaises;
-    }
-
-    public static Map<String, String> getListaMusicas() {
-        return listaMusicas;
-    }
 }

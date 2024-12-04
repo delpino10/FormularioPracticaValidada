@@ -1,24 +1,12 @@
-<!--<!DOCTYPE html>
-<html lang="es"
-      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>Cabecera</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
-</head>
-<body>-->
 
     <div class="informacion-cliente" >
         <ul>
             <li><strong><span><th:block th:text="#{direccionIP}"/> </span></strong> <span><th:block th:text="${direccionIp}"/> </span></li>
-            <li><strong><span><th:block th:text="#{navegador}"/> </span></strong><code th:text="${navegador}"/> </span></li>
-            <li><strong><span><th:block th:text="#{sistemaOperativo}"/> </span></strong> <span><code th:text="${SO}"/> </span></li>
-            <li><strong><span><th:block th:text="#{motorRenderizado}"/> </span></strong>  <span><code th:text="${renderizado}"/> </span></li>
-            <li><strong><span><th:block th:text="#{nombreHost}"/> </span></strong> <span><code th:text="${hostSolicitado}"/> </span></li>
-            <li><strong><span><th:block th:text="#{idioma}"/> </span></strong></b>  <span><code th:text="${localePrincipal}"/></span> </li>
+            <li><strong><span><th:block th:text="#{navegador}"/> </span></strong><code th:text="${navegador}"></code> </li>
+            <li><strong><span><th:block th:text="#{sistemaOperativo}"/> </span></strong> <span><code th:text="${SO}"></code> </span></li>
+            <li><strong><span><th:block th:text="#{motorRenderizado}"/> </span></strong>  <span><code th:text="${renderizado}"></code> </span></li>
+            <li><strong><span><th:block th:text="#{nombreHost}"/> </span></strong> <span><code th:text="${hostSolicitado}"></code> </span></li>
+            <li><strong><span><th:block th:text="#{idioma}"/> </span></strong> <span><code th:text="${localePrincipal}"></code></span> </li>
         </ul>
     </div>
 
-<!--
-</body>
-</html>-->

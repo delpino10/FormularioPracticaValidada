@@ -67,7 +67,7 @@ public class DatosFormulario {
 
     @NotNull
     @Digits(integer = 3, fraction = 2, message = "{Validacion.peso.Digits}")
-    private Float peso = 0.0F;
+    private Float peso;
 
 
 
@@ -78,6 +78,8 @@ public class DatosFormulario {
 
 
     @Size(min = 9, message = "{Vaidacion.telefono.Size}")
+    @Pattern(regexp = "^[0-9]+$",
+    message = "{Validacion.telefono.digitos}")
     private String telefono;
 
 

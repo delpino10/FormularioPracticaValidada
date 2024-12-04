@@ -52,7 +52,7 @@ public class PrincipalController {
         // Información del Cliente en la cabecera
         informacionCliente(request,modelo);
         // Titulo
-        modelo.addAttribute("titulo", "Original");
+        modelo.addAttribute("Original", "");
         // Licencia por defecto desactivada
         modelo.addAttribute("licencia", false);
         // Interacciones
@@ -82,9 +82,9 @@ public class PrincipalController {
             Model modelo) {
 
             // Mensaje de error
-            String mensajeNOK = "ALERTA: Formulario con errores";
+            String mensajeNOK = "";
             // Muestra el mensaje cuando el formulario no contiene errores
-            String mensajeOK = "ALELUYA: formualrio sin errores";
+            String mensajeOK = "";
             // Mostrar el mensaje de las coordenadas en la vista
             String coordenadas = coordenadasImage(x,y);
 
@@ -101,24 +101,19 @@ public class PrincipalController {
             // Renderiza interacciones
             modelo.addAttribute("interaccion", interaccion);
             // Título
-            modelo.addAttribute("titulo", " Repintado");
+            modelo.addAttribute("Repintado", " ");
             // Renderiza mensaje de Error
             modelo.addAttribute("mensajeNOK", mensajeNOK);
             // Mostrar el nombre del archivo
             modelo.addAttribute("archivo", archivo);
             // Renderiza las coordenadas de la imagen
             modelo.addAttribute("coordenadas", coordenadas);
-//             Comprueba que los datos han llegado al servidor
-            System.err.println(datosFormulario.toString());
 
             return "contenido";
         }
 
         // Interacciones
         interaccion++;
-
-        // Comprueba que los datos han llegado al servidor
-        System.err.println(datosFormulario.toString());
 
         //Título
         modelo.addAttribute("titulo", " Repintado");
@@ -130,13 +125,6 @@ public class PrincipalController {
 
         return "contenido";
     }
-
-   /* @GetMapping("formulario")
-    public String changelanguage(
-            @RequestParam("lang") String lang
-    ) {
-        return "contenido";
-    }*/
 
     // Mostrar el mensaje de las coordenadas en la vista
     public static String coordenadasImage (Integer x , Integer y) {

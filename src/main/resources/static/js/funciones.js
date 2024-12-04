@@ -3,7 +3,7 @@ function verContrasenia(){
     let clave = document.getElementById('clave');
     let confirmarClave = document.getElementById('confirmarClave');
 
-    if (clave.type == 'password'){
+    if (clave.type === 'password'){
         clave.type = 'text'
         confirmarClave.type = 'text'
     }else {
@@ -16,7 +16,7 @@ function verContrasenia(){
 function deseleccionarRadio(botonesRadioName) {
     const elementos = document.getElementsByName(botonesRadioName);
     for (let i = 0; i <elementos.length; i++) {
-        if (elementos[i].type == 'radio') {
+        if (elementos[i].type === 'radio') {
             elementos[i].checked = false;
         }
     }
@@ -81,11 +81,68 @@ function vaciarFormulario() {
     });
 }
 
+// Cambia el idioma de la pagina
 $(document).ready(function() {
+    // Obtener el parámetro 'idioma' de la URL
+    function getParameterByName(name) {
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+    }
+
+    const selectedOption = getParameterByName('idioma');
+
+    // Si hay un idioma en la URL, seleccionarlo en el select
+    if (selectedOption) {
+        $('#idioma').val(selectedOption);
+    }
     $("#idioma").change(function () {
-        var selectedOption = $('#idioma').val();
+        let selectedOption = $('#idioma').val();
         if (selectedOption !== ''){
             window.location.replace('/formulario/devuelve-formulario?idioma=' + selectedOption);
         }
     });
 });
+
+// PopUp de confirmación de reseteo
+// mensaje en Español e Inglés
+function confirmarReseteo(nombreFormulario){
+    let mensaje;
+    let idioma = document.getElementById('idioma').value;
+
+    if (idioma === "es") {
+        mensaje = "Pulsa Aceptar para establecer el valor por defecto de los campos del formulario. " +
+            "Pulsa Cancelar para abortar esta operación.";
+    } else if (idioma === "en") {
+        mensaje = "Press Accept to reset the form fields value. Press Cancel to abort this operation."
+    } else {
+        mensaje ="Unknown language / Idioma desconocido"
+    }
+
+    if (confirm(mensaje)) { // si se pulsa Aceptar
+// se resetea el formulario
+        document.getElementById(nombreFormulario).reset();
+    }
+}
+
+// PopUp de confirmación de envio
+// mensaje en Español e Inglés
+function confirmarEnvio(nombreFormulario){
+    let mensaje;
+    let idioma = document.getElementById('idioma').value;
+
+    if (idioma === "es") {
+        mensaje = "Pulsa Aceptar para enviar el formulario. " +
+            "Pulsa Cancelar para abortar esta operación.";
+    } else if (idioma === "en") {
+        mensaje = "Click Accept to submit the form. Click Cancel to abort this operation."
+    } else {
+        mensaje ="Unknown language / Idioma desconocido"
+    }
+
+    if (confirm(mensaje)) { // si se pulsa Aceptar
+// se resetea el formulario
+        document.getElementById(nombreFormulario).submit();
+    }
+}
+
+
