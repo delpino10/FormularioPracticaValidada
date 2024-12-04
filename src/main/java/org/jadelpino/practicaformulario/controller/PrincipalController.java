@@ -58,7 +58,7 @@ public class PrincipalController {
         // Interacciones
         modelo.addAttribute("interaccion", interaccion);
 
-        return "dar-alta-usuario";
+        return "contenido";
     }
 
 
@@ -111,7 +111,7 @@ public class PrincipalController {
 //             Comprueba que los datos han llegado al servidor
             System.err.println(datosFormulario.toString());
 
-            return "dar-alta-usuario";
+            return "contenido";
         }
 
         // Interacciones
@@ -128,8 +128,15 @@ public class PrincipalController {
         modelo.addAttribute("archivo", archivo);
         modelo.addAttribute("coordenadas", coordenadas);
 
-        return "dar-alta-usuario";
+        return "contenido";
     }
+
+   /* @GetMapping("formulario")
+    public String changelanguage(
+            @RequestParam("lang") String lang
+    ) {
+        return "contenido";
+    }*/
 
     // Mostrar el mensaje de las coordenadas en la vista
     public static String coordenadasImage (Integer x , Integer y) {

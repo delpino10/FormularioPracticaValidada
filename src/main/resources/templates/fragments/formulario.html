@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="es"
       xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
@@ -6,25 +6,34 @@
     <meta charset="utf-8" />
     <title>Práctica Formulario Validaciones </title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
-    <link rel="icon" href="data:," /> <!-- Favicon vacío -->
+    <link rel="icon" href="data:," /> &lt;!&ndash; Favicon vacío &ndash;&gt;
     <script th:src="@{/js/funciones.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
-<body>
+<body>-->
 
-
+<!--    Interacciones-->
     <div>
         <th:block th:text="#{eco-parametros.interacciones}"/>
         <th:block th:text="${interaccion}"/>
     </div>
+<!--Selecciona el Idioma-->
+    <span th:text="#{lang.change}"></span>:
+    <select id="idioma" name="idioma">
+        <option value="" th:text="#{lang.change}"></option>
+        <option value="en" th:text="#{lang.eng}"></option>
+        <option value="es" th:text="#{lang.es}"></option>
+    </select>
 
+<!--Título-->
     <h1><b>Formulario <th:block th:text="${titulo}" /></b></h1>
-
+<!--Mensaje Error-->
     <h3 class="correcto" th:if="${mensajeOK}" th:text="${mensajeOK}"/>
     <h3 class="error" th:if="${mensajeNOK}" th:text="${mensajeNOK}"/>
 
         <br/>
 
-
+<!--Comienza el Formulario-->
     <form action="recibeParametrosYRepinta" method="post" th:object="${datosFormulario}" id="formulario">
         <!-- Mostrar errores globales -->
         <div th:if="${#fields.hasGlobalErrors()}">
@@ -72,10 +81,10 @@
                         th:field="*{generoSeleccionado}"
                         th:value="${genero.key}">
                 <label th:for="'genero_' + ${genero.key}" th:text="${genero.value}"/>
+            </div>
                 <ul>
                     <li th:each="err : ${#fields.errors('generoSeleccionado')}" th:text="${err}" class="error"/>
                 </ul>
-            </div>
             <!--boton ver deseleccionar Radio-->
             <input type="button"
                    id="deseleccionarRadios"
@@ -104,34 +113,34 @@
                                                              th:text="#{Datos-Personales.fechaNacimiento}"></label>
                 <input type="text" th:field="*{fechaNacimiento}" id="fechaNacimiento"
                        th:placeholder="#{Datos-Personales.fechaNacimientoPH}">
+            </div>
                 <ul>
                     <li th:each="err : ${#fields.errors('fechaNacimiento')}" th:text="${err}" class="error"/>
                 </ul>
-            </div>
             <!--Edad    -->
             <div>
                 <span style="color:red">&#9654;</span><label for="edad" th:text="#{Datos-Personales.edad}"></label>
                 <input type="text" th:field="*{edad}" id="edad">
+            </div>
                 <ul>
                     <li th:each="err : ${#fields.errors('edad')}" th:text="${err}" class="error"/>
                 </ul>
-            </div>
 
             <!--Peso   -->
             <div>
                 <span style="color:red; ">&#42;</span><label for="peso" th:text="#{Datos-Personales.peso}"></label>
                 <input type="text" th:field="*{peso}" id="peso">
+            </div>
                 <ul>
                     <li th:each="err : ${#fields.errors('peso')}" th:text="${err}" class="error"/>
                 </ul>
-            </div>
 
             <legend th:text="#{Datos-contacto.datosContacto}"/>
 
             <!--Prefijo-->
             <div>
                 <span style="color:red">&#9654;</span><label for="prefijoTelefonicoPais"
-                                                             th:text="#{Datos-contacto.prefijoTelefonico}"/>
+                                                             th:text="#{Datos-contacto.prefijoTelefonico}"></label>
                 <select th:field="*{prefijoTelefonico}" id="prefijoTelefonicoPais">
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
@@ -183,10 +192,10 @@
                          && aficionesSeleccionadas.contains(a.key)}"
                 />
                 <label for="aficion_seleccionada" th:text="${a.value}">Afición</label>
+            </div>
                 <ul>
                     <li th:each="err : ${#fields.errors('aficionesSeleccionadas')}" th:text="${err}" class="error"/>
                 </ul>
-            </div>
 
             <input type="button" value="Deseleccionar Aficiones" onclick="deseleccionarAficiones()">
             <input type="button" value="Seleccionar Aficiones" onclick="seleccionarAficiones()">
@@ -203,8 +212,7 @@
                             th:value="${m.key}"
                             th:text="${m.value}"
                             th:selected="${!#lists.isEmpty(musicasSeleccionadas)
-                            && musicasSeleccionadas.contains(m.key)}"
-                    />
+                            && musicasSeleccionadas.contains(m.key)}"></option>
                 </select>
                 <ul>
                     <li th:each="err : ${#fields.errors('musicasSeleccionadas')}" th:text="${err}" class="error"/>
@@ -287,5 +295,7 @@
         </fieldset>
     </form>
 
-</body>
-</html>
+
+
+<!--</body>
+</html>-->

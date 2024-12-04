@@ -67,7 +67,7 @@ public class DatosFormulario {
 
     @NotNull
     @Digits(integer = 3, fraction = 2, message = "{Validacion.peso.Digits}")
-    private Float peso;
+    private Float peso = 0.0F;
 
 
 
@@ -91,7 +91,7 @@ public class DatosFormulario {
     @NotNull
     @Pattern(regexp = "^www\\.[a-zA-Z0-9-]+\\.[a-zA-Z]{2,}$",
     message = "{Vaidacion.url.pattern}")
-    private String url;
+    private String url = "";
 
     @NotNull
     @Pattern(
