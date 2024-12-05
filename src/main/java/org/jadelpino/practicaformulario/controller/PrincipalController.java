@@ -92,7 +92,7 @@ public class PrincipalController {
         informacionCliente(request, modelo);
         // Método que gestiona los errores globales relacionados con null
         // de los campos
-        erroresGlobales(datosFormulario, bindingResult);
+        //erroresGlobales(datosFormulario, bindingResult);
 
         // Si hay errores
         if(bindingResult.hasErrors()) {
@@ -128,14 +128,13 @@ public class PrincipalController {
 
     // Mostrar el mensaje de las coordenadas en la vista
     public static String coordenadasImage (Integer x , Integer y) {
-        String coordenadas = (x != null && y != null)
+        return (x != null && y != null)
                 ? "imagen.x: " + x + " e imagen.y: " + x
                 : "";
-        return coordenadas;
     }
 
     // Gestionar los null para mostrar el mensaje de error Global
-    public static void erroresGlobales(DatosFormulario datosFormulario,
+   /* public static void erroresGlobales(DatosFormulario datosFormulario,
                                        BindingResult bindingResult) {
         if((datosFormulario.getUsuario() == null)
                 || (datosFormulario.getClave() == null)
@@ -155,7 +154,7 @@ public class PrincipalController {
         ) {
             bindingResult.reject("Validacion.error.global");
         }
-    }
+    }*/
 
     // #################### Informacion Cliente ##########################
 

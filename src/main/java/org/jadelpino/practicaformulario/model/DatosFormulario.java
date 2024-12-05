@@ -11,14 +11,14 @@ import java.util.List;
 
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @ToString
-// Válida si los años transcurridos concuerdan con la edad
+// Válida si los años transcurridos desde la fecha de nacimiento
 @EdadEqualsFechaNac
 // Válida que las contraseñas sean iguales
 @ContraseniasCoincidente
 public class DatosFormulario {
     @NotBlank
     private String usuario = "Lola";// String Lola como valor por defecto a la vista
-
+    // Válida que las contraseñas sean iguales
     @NotBlank
     @Size(min = 6, max = 12, message= "{Validacion.clave.size}")
     @Pattern(
@@ -26,6 +26,7 @@ public class DatosFormulario {
             message = "{Validacion.clave.CaracterEspecial}"
     )
     private String clave;
+    // Válida que las contraseñas sean iguales
 
     @NotBlank//(message = "{Validacion.confirmarClave.notBlank}")
     @Size(min = 6, max = 12, message= "{Validacion.confirmarClave.size}")

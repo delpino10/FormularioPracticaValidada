@@ -8,14 +8,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-public @interface ContraseniasCoincidente {
-
+    @Constraint(validatedBy =ContraseniasCoincidente_Validator.class)
     @Target({ ElementType.TYPE })
     @Retention(RetentionPolicy.RUNTIME)
-    @Constraint(validatedBy =ContraseniasCoincidente_Validator.class)
-    public @interface PasswordMatch {
-        String message() default "{Validacion.confirmarClave.ContraseñasCoincidente}";
+    public @interface ContraseniasCoincidente {
+        String message() default "{Validacion.confirmarClave.ContraseniasCoincidente}";
         Class<?>[] groups() default {};
         Class<? extends Payload>[] payload() default {};
     }
-}
+
