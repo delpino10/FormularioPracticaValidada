@@ -5,8 +5,10 @@
         <th:block th:text="#{eco-parametros.interacciones}"/>
         <th:block th:text="${interaccion}"/>
     </div>
+
 <!--Selecciona el Idioma-->
-    <span th:text="#{lang.change}"></span>:
+    <span th:text="#{lang.change}"></span>
+    <label for="idioma"></label>
     <select id="idioma" name="idioma">
         <!--<option value="" th:text="#{lang.change}"></option>-->
         <option value="es" th:text="#{lang.es}"></option>
@@ -14,12 +16,13 @@
     </select>
 
 <!--Título-->
-    <h1><b> <th:block th:text="#{titulo.Formulario}"/>
+<!--     <th:block th:text="#{titulo.Formulario}"/>-->
+    <h1><b>
         <th:block th:if="${Original}" th:text="#{titulo.Original}" />
         <th:block th:if="${Repintado}" th:text="#{titulo.Repintado}" />
     </b></h1>
 
-<!--Mensaje Error-->
+<!--Mensaje Formulario Validado-->
     <h3 class="correcto" th:if="${mensajeOK}" th:text="#{Validadcion.Error.OK}"></h3>
     <h3 class="error" th:if="${mensajeNOK}" th:text="#{Validadcion.Error.NOK}"></h3>
 
@@ -27,6 +30,7 @@
 
 <!--Comienza el Formulario-->
     <form action="recibeParametrosYRepinta" method="post" th:object="${datosFormulario}" id="formulario">
+
         <!-- Mostrar errores globales -->
         <div th:if="${#fields.hasGlobalErrors()}">
             <p class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
@@ -36,17 +40,19 @@
             <legend th:text="#{Datos-Personales.legend}"></legend>
 
             <input type="hidden" name="interacciones" value="1">
+            <!--Usuario-->
             <div>
-                <span style="color:red">&#42;</span><label for="usuario" th:text="#{Datos-Personales.usuario}"></label>
+                <span style="color:red">&#42;</span><label for="nombre" th:text="#{Datos-Personales.usuario}"></label>
                 <input type="text"
-                       id="usuario"
-                       th:field="*{usuario}"
+                       id="nombre"
+                       th:field="*{nombre}"
                        th:placeholder="#{Placeholder.usuario}"
                 tabindex="1"/>
                 <ul>
-                    <li th:each="err : ${#fields.errors('usuario')}" th:text="${err}" class="error"></li>
+                    <li th:each="err : ${#fields.errors('nombre')}" th:text="${err}" class="error"></li>
                 </ul>
             </div>
+            <!--Clave-->
             <div>
                 <span style="color:red">&#42;</span><label for="clave" th:text="#{Datos-Personales.clave}"></label>
                 <input type="password"
@@ -58,6 +64,7 @@
                     <li th:each="err : ${#fields.errors('clave')}" th:text="${err}" class="error"></li>
                 </ul>
             </div>
+            <!--Confirmar Clave-->
             <div>
                 <span style="color:red">&#42;</span><label for="confirmarClave" th:text="#{Datos-Personales.confirmarClave}"></label>
                 <input type="password"
@@ -69,7 +76,7 @@
                     <li th:each="err : ${#fields.errors('confirmarClave')}" th:text="${err}" class="error"></li>
                 </ul>
             </div>
-            <!--boton ver contraseñas-->
+            <!--boton desvelar contraseñas-->
             <input type="button"
                    id="verClaves"
                    th:value="#{Boton.verClaves}"
@@ -79,19 +86,20 @@
 
             <!--Géneros-->
             <p><span style="color:red;">&#42;</span><span th:text="#{Datos-Personales.genero}"></span></p>
-
+            <label for="generoSeleccionado"></label>
             <div th:each="genero : ${lista_generos}">
                 <input
                         type="radio"
                         th:field="*{generoSeleccionado}"
                         th:value="${genero.key}"
+                        id="generoSeleccionado"
                         tabindex="5">
                 <label th:for="'genero_' + ${genero.key}" th:text="${genero.value}"></label>
             </div>
                 <ul>
                     <li th:each="err : ${#fields.errors('generoSeleccionado')}" th:text="${err}" class="error"></li>
                 </ul>
-            <!--boton ver deseleccionar Radio-->
+            <!--boton ver deseleccionar Radio Géneros-->
             <input type="button"
                    id="deseleccionarRadios"
                    th:value="#{Boton.deseleccionarGenero}"
@@ -109,6 +117,9 @@
                             th:value="${p.key}"
                             th:text="${p.value.pais}"
                             tabindex="7">
+                <ul>
+                    <li th:each="err : ${#fields.errors('paisSeleccionado')}" th:text="${err}" class="error"></li>
+                </ul>
                     </option>
                 </select>
             </div>
@@ -127,7 +138,8 @@
                 <ul>
                     <li th:each="err : ${#fields.errors('fechaNacimiento')}" th:text="${err}" class="error"></li>
                 </ul>
-            <!--Edad    -->
+
+            <!--Edad-->
             <div>
                 <span style="color:red">&#9654;</span><label for="edad" th:text="#{Datos-Personales.edad}"></label>
                 <input type="text"
@@ -139,7 +151,7 @@
                     <li th:each="err : ${#fields.errors('edad')}" th:text="${err}" class="error"></li>
                 </ul>
 
-            <!--Peso   -->
+            <!--Peso-->
             <div>
                 <span style="color:red; ">&#42;</span><label for="peso" th:text="#{Datos-Personales.peso}"></label>
                 <input type="text"
@@ -155,7 +167,7 @@
         <fieldset>
             <legend th:text="#{Datos-contacto.datosContacto}"></legend>
 
-            <!--Prefijo-->
+            <!--Prefijo telefónico-->
             <div>
                 <span style="color:red">&#9654;</span><label for="prefijoTelefonicoPais" th:text="#{Datos-contacto.prefijoTelefonico}"></label>
                 <select th:field="*{prefijoTelefonico}" id="prefijoTelefonicoPais">
@@ -169,6 +181,7 @@
                     <li th:each="err : ${#fields.errors('prefijoTelefonico')}" th:text="${err}" class="error"></li>
                 </ul>
             </div>
+
             <!--Telefono-->
             <div>
                 <span style="color:red">&#9654;</span><label for="telefono" th:text="#{Datos-contacto.telefono}"></label>
@@ -181,6 +194,7 @@
                     <li th:each="err : ${#fields.errors('telefono')}" th:text="${err}" class="error"></li>
                 </ul>
             </div>
+
             <!--Email-->
             <div>
                 <span style="color:red">&#9654;</span><label for="email" th:text="#{Datos-contacto.email}"></label>
@@ -193,6 +207,7 @@
                     <li th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error"></li>
                 </ul>
             </div>
+
             <!--Url-->
             <div>
                 <label for="url" th:text="#{Datos-contacto.url}"></label>
@@ -212,7 +227,8 @@
             <legend th:text="#{otros-datos.legend}"></legend>
 
         <!--/* Aficiones */-->
-            <div th:each="a : ${lista_aficiones}">
+            <th:block th:text="#{otros-datos.aficiones}"/>
+            <div th:each="a : ${lista_aficiones}" >
                 <input
                         id="aficion_seleccionada"
                         th:field="*{aficionesSeleccionadas}"
@@ -226,7 +242,7 @@
                 <ul>
                     <li th:each="err : ${#fields.errors('aficionesSeleccionadas')}" th:text="${err}" class="error"></li>
                 </ul>
-
+        <!--Botones Aficiones-->
             <input type="button"
                    th:value="#{Boton.deseleccionarAficiones}"
                    onclick="deseleccionarAficiones()"
@@ -240,8 +256,8 @@
             <br/>
 
         <!--/* Música */-->
-            <div>
-                <label for="musica"></label>
+                <label for="musica" th:text="#{otros-datos.musicas}" ></label>
+            <div    >
                 <select multiple="multiple" th:field="*{musicasSeleccionadas}" id="musica">
                     <option value="">Selecciona una Opción</option>
                     <option th:each=" m :${lista_musicas}"
@@ -255,7 +271,7 @@
                     <li th:each="err : ${#fields.errors('musicasSeleccionadas')}" th:text="${err}" class="error"></li>
                 </ul>
             </div>
-
+        <!--Botones Música-->
             <input type="button"
                    th:value="#{Boton.deseleccionarMusicas}"
                    onclick="deseleccionarMusica()"
@@ -290,8 +306,8 @@
             <br/>
 
         <!--/* Comentario */-->
+                <label for="comentario" th:text="#{otros-datos.comentario}"></label>
             <div>
-                <label for="comentario"></label>
                 <textarea
                         th:field="*{comentarios}"
                         id="comentario"
@@ -324,6 +340,7 @@
 
         <fieldset>
         <legend th:text="#{operaciones-Formulario.legend}"></legend>
+
         <!--Imagen-->
         <input type="image"
                name="imagen"

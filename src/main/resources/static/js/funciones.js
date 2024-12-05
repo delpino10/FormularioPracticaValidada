@@ -121,10 +121,12 @@ function confirmarReseteo(nombreFormulario){
     if (confirm(mensaje)) { // si se pulsa Aceptar
 // se resetea el formulario
         document.getElementById(nombreFormulario).reset();
+    }else{
+        console.log("Operación cancelada por el usuario.")
     }
 }
 
-// PopUp de confirmación de envio
+// PopUp de confirmación de envío
 // mensaje en Español e Inglés
 function confirmarEnvio(nombreFormulario){
     let mensaje;
@@ -142,6 +144,8 @@ function confirmarEnvio(nombreFormulario){
     if (confirm(mensaje)) { // si se pulsa Aceptar
 // se resetea el formulario
         document.getElementById(nombreFormulario).submit();
+    }else{
+        document.getElementById(nombreFormulario).remove();
     }
 }
 

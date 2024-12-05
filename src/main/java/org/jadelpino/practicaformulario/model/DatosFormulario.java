@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor @AllArgsConstructor
-@Getter @Setter @ToString
-// Válida si los años transcurridos desde la fecha de nacimiento
+@Data
+// Válida si los años transcurridos concuerdan desde la fecha de nacimiento
 @EdadEqualsFechaNac
 // Válida que las contraseñas sean iguales
 @ContraseniasCoincidente
 public class DatosFormulario {
     @NotBlank
-    private String usuario = "Lola";// String Lola como valor por defecto a la vista
-    // Válida que las contraseñas sean iguales
+    private String nombre = "Lola";// String Lola como valor por defecto a la vista
+
     @NotBlank
     @Size(min = 6, max = 12, message= "{Validacion.clave.size}")
     @Pattern(
@@ -28,15 +28,13 @@ public class DatosFormulario {
     private String clave;
     // Válida que las contraseñas sean iguales
 
-    @NotBlank//(message = "{Validacion.confirmarClave.notBlank}")
+    @NotBlank
     @Size(min = 6, max = 12, message= "{Validacion.confirmarClave.size}")
     @Pattern(
             regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&])[A-Za-z\\d!#$%&]{1,}$",
             message = "{Validacion.confirmarClave.CaracterEspecial}"
     )
     private String confirmarClave;
-
-    //@NotEmpty(message = "{Validacion.generoSeleccionado.notBlank}")
 
     @NotNull
     @Pattern(
@@ -45,7 +43,7 @@ public class DatosFormulario {
     )
     private String generoSeleccionado;
 
-
+    @NotNull(message = "Este campo no puede quedar vacío")
     @Pattern(
             regexp = "^(pt|es|fr|uk|it)$",
             message = "{paisSeleccionado.notBlank}"
@@ -53,25 +51,24 @@ public class DatosFormulario {
     private String paisSeleccionado = "pt";
 
     @NotNull
-    //Valida una fecha es de hace más de 18 años
+    // Válida una fecha es de hace más de 18 años
     @FechaNacMasDe18anios
-    // Valida que la fecha insertada sea anterior a hoy
+    // Válida que la fecha insertada sea anterior a hoy
     @Past(message = "{Validacion.fechaNac.Past}")
-    // Valida que el formato sea dd/MM/yyyy
+    // Válida que el formato sea dd/MM/yyyy
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaNacimiento;
 
 
     @Min(18)
-    @Max(67)
     private Integer edad;
 
-    //@NotNull
+    @NotNull
     @Digits(integer = 3, fraction = 2, message = "{Validacion.peso.Digits}")
     private Float peso;
 
 
-
+    @NotNull
     @Pattern(
             regexp = "^(pt|es|fr|uk|it)$",
             message = "{Validacion.prefijoSeleccionado.notBlank}")
@@ -94,7 +91,7 @@ public class DatosFormulario {
     @NotNull
     @Pattern(regexp = "^www\\.[a-zA-Z0-9-]+\\.[a-zA-Z]{2,}$",
     message = "{Vaidacion.url.pattern}")
-    private String url = "";
+    private String url;
 
     @NotNull
     @Pattern(
@@ -103,10 +100,11 @@ public class DatosFormulario {
     )
     private String archivos;
 
+    @NotNull
     @Size(min=1, message = "{Validacion.unTipoMusica.contains}")
     private List<String> musicasSeleccionadas = musicasDefecto();
 
-
+    @NotNull
     @Size(min=2,
         message = "{Validacion.dosTiposAficiones.contains}")
     private List<String> aficionesSeleccionadas = aficionesDefecto();

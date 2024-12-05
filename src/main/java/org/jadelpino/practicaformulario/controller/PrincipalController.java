@@ -49,12 +49,10 @@ public class PrincipalController {
             Model modelo,
             @ModelAttribute ("datosFormulario") DatosFormulario datosFormulario,
             HttpServletRequest request) {
-        // Información del Cliente en la cabecera
+        // Método que recopila y muestra la Información del Cliente en la cabecera
         informacionCliente(request,modelo);
         // Titulo
         modelo.addAttribute("Original", "");
-        // Licencia por defecto desactivada
-        modelo.addAttribute("licencia", false);
         // Interacciones
         modelo.addAttribute("interaccion", interaccion);
 
@@ -90,9 +88,6 @@ public class PrincipalController {
 
         // Información del Cliente en la cabecera
         informacionCliente(request, modelo);
-        // Método que gestiona los errores globales relacionados con null
-        // de los campos
-        //erroresGlobales(datosFormulario, bindingResult);
 
         // Si hay errores
         if(bindingResult.hasErrors()) {
@@ -109,8 +104,11 @@ public class PrincipalController {
             // Renderiza las coordenadas de la imagen
             modelo.addAttribute("coordenadas", coordenadas);
 
+            System.err.println(datosFormulario.toString());
+
             return "contenido";
         }
+        // Si no Hay errores
 
         // Interacciones
         interaccion++;
@@ -123,10 +121,12 @@ public class PrincipalController {
         modelo.addAttribute("archivo", archivo);
         modelo.addAttribute("coordenadas", coordenadas);
 
+        System.err.println(datosFormulario.toString());
+
         return "contenido";
     }
 
-    // Mostrar el mensaje de las coordenadas en la vista
+    // Mostrar el mensaje de las coordenadas de la imagen en la vista
     public static String coordenadasImage (Integer x , Integer y) {
         return (x != null && y != null)
                 ? "imagen.x: " + x + " e imagen.y: " + x
