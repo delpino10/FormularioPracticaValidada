@@ -133,28 +133,6 @@ public class PrincipalController {
                 : "";
     }
 
-    // Gestionar los null para mostrar el mensaje de error Global
-   /* public static void erroresGlobales(DatosFormulario datosFormulario,
-                                       BindingResult bindingResult) {
-        if((datosFormulario.getUsuario() == null)
-                || (datosFormulario.getClave() == null)
-                || (datosFormulario.getConfirmarClave() == null)
-                || (datosFormulario.getGeneroSeleccionado() == null)
-                || datosFormulario.getGeneroSeleccionado().isEmpty()
-                || (datosFormulario.getPaisSeleccionado() == null)
-                || (datosFormulario.getFechaNacimiento() == null)
-                || (datosFormulario.getEdad() == null)
-                || (datosFormulario.getPeso() == null)
-                || (datosFormulario.getPrefijoTelefonico() == null)
-                || (datosFormulario.getTelefono() == null)
-                || (datosFormulario.getUrl() == null)
-                || (datosFormulario.getArchivos() == null)
-                || (datosFormulario.getComentarios() == null)
-                || (datosFormulario.getLicencia() == null)
-        ) {
-            bindingResult.reject("Validacion.error.global");
-        }
-    }*/
 
     // #################### Informacion Cliente ##########################
 
@@ -181,8 +159,6 @@ public class PrincipalController {
         model.addAttribute("localePrincipal", localePrincipal.toString());
 
     }
-
-
 
     // Método para extraer el sistema operativo del User-Agent
     private String obtenerSistemaOperativo(String userAgent) {

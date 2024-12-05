@@ -29,7 +29,7 @@
     <form action="recibeParametrosYRepinta" method="post" th:object="${datosFormulario}" id="formulario">
         <!-- Mostrar errores globales -->
         <div th:if="${#fields.hasGlobalErrors()}">
-            <p style="color: red;" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+            <p class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
         </div>
 
         <fieldset>
@@ -274,6 +274,7 @@
                 <input type="file"
                        multiple="multiple"
                        th:field="*{archivos}"
+                       th:value="${archivos}"
                        id="archivo"
                        tabindex="20">
             </div>

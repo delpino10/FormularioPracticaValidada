@@ -66,7 +66,7 @@ public class DatosFormulario {
     @Max(67)
     private Integer edad;
 
-    @NotNull
+    //@NotNull
     @Digits(integer = 3, fraction = 2, message = "{Validacion.peso.Digits}")
     private Float peso;
 
