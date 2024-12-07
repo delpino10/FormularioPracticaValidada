@@ -1,10 +1,11 @@
 
-
 <!--    Interacciones-->
     <div>
         <th:block th:text="#{eco-parametros.interacciones}"/>
         <th:block th:text="${interaccion}"/>
     </div>
+
+<br/>
 
 <!--Selecciona el Idioma-->
     <span th:text="#{lang.change}"></span>
@@ -16,22 +17,21 @@
     </select>
 
 <!--Título-->
-<!--     <th:block th:text="#{titulo.Formulario}"/>-->
     <h1><b>
         <th:block th:if="${Original}" th:text="#{titulo.Original}" />
         <th:block th:if="${Repintado}" th:text="#{titulo.Repintado}" />
     </b></h1>
 
 <!--Mensaje Formulario Validado-->
-    <h3 class="correcto" th:if="${mensajeOK}" th:text="#{Validadcion.Error.OK}"></h3>
-    <h3 class="error" th:if="${mensajeNOK}" th:text="#{Validadcion.Error.NOK}"></h3>
+    <h2 class="correcto" th:if="${mensajeOK}" th:text="#{Validadcion.Error.OK}"></h2>
+    <h2 class="error" th:if="${mensajeNOK}" th:text="#{Validadcion.Error.NOK}"></h2>
 
-        <br/>
+
 
 <!--Comienza el Formulario-->
-    <form action="recibeParametrosYRepinta" method="post" th:object="${datosFormulario}" id="formulario">
+    <form th:action="@{recibeParametrosYRepinta}" method="post" th:object="${datosFormulario}" id="formulario" >
 
-        <!-- Mostrar errores globales -->
+        <!-- Mostrar errores globales y validadciones que afectan a dos campos-->
         <div th:if="${#fields.hasGlobalErrors()}">
             <p class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
         </div>
@@ -76,6 +76,7 @@
                     <li th:each="err : ${#fields.errors('confirmarClave')}" th:text="${err}" class="error"></li>
                 </ul>
             </div>
+
             <!--boton desvelar contraseñas-->
             <input type="button"
                    id="verClaves"
@@ -103,7 +104,7 @@
             <input type="button"
                    id="deseleccionarRadios"
                    th:value="#{Boton.deseleccionarGenero}"
-                   onclick="deseleccionarRadio('generoSeleccionado');"
+                   onclick="deseleccionarGenero('generoSeleccionado');"
                    tabindex="6">
 
             <br/>
@@ -112,16 +113,19 @@
             <!--/* Paises */-->
             <div>
                 <span style="color:red; ">&#42;</span><label for="pais_seleccionado" th:text="#{Datos-Personales.pais}"></label>
-                <select th:field="*{paisSeleccionado}" id="pais_seleccionado" >
+                <select th:field="*{paisSeleccionado}" id="pais_seleccionado">
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
                             th:text="${p.value.pais}"
                             tabindex="7">
+                            <!--He intentado acceder alas imágenes para mostrar las banderas,
+                            pero no he tenido éxito-->
+                            <!--th:style="'background-image: url(' + @{/img/} + ${p.value.nombreArchivoBandera} + ')no-repeat; height:100px; width:150px; background-size: contain;  '"-->
+                    </option>
+                </select>
                 <ul>
                     <li th:each="err : ${#fields.errors('paisSeleccionado')}" th:text="${err}" class="error"></li>
                 </ul>
-                    </option>
-                </select>
             </div>
             <br/>
             <br/>
@@ -169,8 +173,8 @@
 
             <!--Prefijo telefónico-->
             <div>
-                <span style="color:red">&#9654;</span><label for="prefijoTelefonicoPais" th:text="#{Datos-contacto.prefijoTelefonico}"></label>
-                <select th:field="*{prefijoTelefonico}" id="prefijoTelefonicoPais">
+                <span style="color:red">&#9654;</span><label for="prefijoTelefonico" th:text="#{Datos-contacto.prefijoTelefonico}"></label>
+                <select th:field="*{prefijoTelefonico}" id="prefijoTelefonico">
                     <option th:each="p : ${lista_paises}"
                             th:value="${p.key}"
                             th:text="${p.value.prefijoTelefonicoPais}"
@@ -257,7 +261,7 @@
 
         <!--/* Música */-->
                 <label for="musica" th:text="#{otros-datos.musicas}" ></label>
-            <div    >
+            <div>
                 <select multiple="multiple" th:field="*{musicasSeleccionadas}" id="musica">
                     <option value="">Selecciona una Opción</option>
                     <option th:each=" m :${lista_musicas}"
@@ -284,19 +288,24 @@
             <br/>
             <br/>
 
+            <fieldset>
+                <legend><th:block th:text="#{otros-datos.archivo.legend}"/></legend>
+
         <!-- /* Subir Archivo */ -->
             <div>
                 <span style="color:red">&#9654;</span><label for="archivo" th:text="#{otros-datos.archivo}"></label>
                 <input type="file"
-                       multiple="multiple"
+                       multiple
                        th:field="*{archivos}"
                        th:value="${archivos}"
                        id="archivo"
+                       accept=".jpg, .jpeg, .gif, .pdf"
                        tabindex="20">
             </div>
                 <ul>
                     <li th:each="err : ${#fields.errors('archivos')}" th:text="${err}" class="error"></li>
                 </ul>
+            </fieldset>
          <!--Muestra el nombre del archivo subido-->
          <div>
              <th:block th:if="${archivo}" th:text="#{otros-datos.nombreArchivo}"/>
@@ -324,16 +333,20 @@
             <br/>
 
         <!-- Licencia-->
-            <div>
-                <label for="licencia" th:text="#{otros-datos.licencia}"></label>
-                <input type="checkbox"
-                       th:field="*{licencia}"
-                       id="licencia"
-                       tabindex="22">
-            </div>
-                <ul>
-                    <li th:each="err : ${#fields.errors('licencia')}" th:text="${err}" class="error"></li>
-                </ul>
+
+            <fieldset>
+                <legend><th:block th:text="#{otros-datos.licencia.legend}"/></legend>
+                <div>
+                    <label for="licencia" th:text="#{otros-datos.licencia}"></label>
+                    <input type="checkbox"
+                           th:field="*{licencia}"
+                           id="licencia"
+                           tabindex="22">
+                </div>
+                    <ul>
+                        <li th:each="err : ${#fields.errors('licencia')}" th:text="${err}" class="error"></li>
+                    </ul>
+            </fieldset>
         </fieldset>
 
         <br/>
@@ -341,7 +354,7 @@
         <fieldset>
         <legend th:text="#{operaciones-Formulario.legend}"></legend>
 
-        <!--Imagen-->
+        <!--Imagen Flecha-->
         <input type="image"
                name="imagen"
                th:src="@{/img/1.jpg}"
@@ -370,6 +383,12 @@
                tabindex="25">
         </fieldset>
     </form>
+
+<!--Contador de Parámetros-->
+    <div>
+        <th:block th:text="#{contador.parametros}"/>
+        <th:block th:text="${contadorParametros}"/>
+    </div>
 
 
 

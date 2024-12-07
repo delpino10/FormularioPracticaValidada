@@ -1,4 +1,7 @@
-// Revela el texto insertado en los input passwords
+// #### Botones #######
+
+// ## Contraseñas #######
+// Revela el texto insertado en los inputs passwords
 function verContrasenia(){
     let clave = document.getElementById('clave');
     let confirmarClave = document.getElementById('confirmarClave');
@@ -10,11 +13,12 @@ function verContrasenia(){
         clave.type = 'password'
         confirmarClave.type = 'password'
     }
-
 }
 
-function deseleccionarRadio(botonesRadioName) {
-    const elementos = document.getElementsByName(botonesRadioName);
+// ## Géneros #######
+// Deselecciona todos los Géneros
+function deseleccionarGenero(botonesRadio) {
+    const elementos = document.getElementsByName(botonesRadio);
     for (let i = 0; i <elementos.length; i++) {
         if (elementos[i].type === 'radio') {
             elementos[i].checked = false;
@@ -22,8 +26,10 @@ function deseleccionarRadio(botonesRadioName) {
     }
 }
 
+// ## Aficiones #######
+// Deselecciona todos las Aficiones
 function deseleccionarAficiones(){
-        // Obtener todos los checkboxes dentro del formulario
+        // Seleccionar todos los checkboxes dentro de aficiones
         const checkboxes = document.querySelectorAll('#aficion_seleccionada');
 
         // Iterar sobre cada checkbox y deseleccionarlos
@@ -32,8 +38,9 @@ function deseleccionarAficiones(){
         });
 }
 
+// Selecciona todas las Aficiones
 function seleccionarAficiones(){
-    // Obtener todos los checkboxes dentro del formulario
+    // Seleccionar todos los checkboxes dentro de aficiones
     const checkboxes = document.querySelectorAll('#aficion_seleccionada');
 
     // Iterar sobre cada checkbox y deseleccionarlos
@@ -42,8 +49,10 @@ function seleccionarAficiones(){
     });
 }
 
+// # Estilos Musicales #######
+// Deselecciona todos los estilos musicales
 function deseleccionarMusica() {
-    // Obtener el select por su id
+    // Seleccionar el select por su id
     const select = document.getElementById('musica');
 
     // Desmarcar todas las opciones seleccionadas
@@ -52,16 +61,19 @@ function deseleccionarMusica() {
     }
 }
 
+// Selecciona todos los estilos musicales
 function seleccionarMusica() {
-    // Obtener el select por su id
+    // Seleccionar el select por su id
     const select = document.getElementById('musica');
 
-    // Desmarcar todas las opciones seleccionadas
+    // Marcar todas las opciones seleccionadas
     for (let i = 0; i < select.options.length; i++) {
         select.options[i].selected = true;
     }
 }
 
+
+// Vacía el formulario de datos pùlsando el botón vaciar
 function vaciarFormulario() {
     // Obtener el formulario
     const formulario = document.getElementById('formulario');
@@ -81,45 +93,53 @@ function vaciarFormulario() {
     });
 }
 
-// Cambia el idioma de la pagina
+// Cambia el idioma de la página
 $(document).ready(function() {
     // Obtener el parámetro 'idioma' de la URL
     function getParameterByName(name) {
         const url = new URL(window.location.href);
         return url.searchParams.get(name);
     }
-
+    // Guardar el parámetro 'idioma'
     const selectedOption = getParameterByName('idioma');
 
-    // Si hay un idioma en la URL, seleccionarlo en el select
+    // Sí hay un 'idioma' en la URL, seleccionarlo en el select
     if (selectedOption) {
         $('#idioma').val(selectedOption);
     }
+    // Cambia el idioma a través de la URL
     $("#idioma").change(function () {
-        let selectedOption = $('#idioma').val();
-        if (selectedOption !== ''){
-            window.location.replace('/formulario/devuelve-formulario?idioma=' + selectedOption);
+        let idiomaSeleccionado = $('#idioma').val();
+        if (idiomaSeleccionado !== ''){
+            window.location.replace('/formulario/devuelve-formulario?idioma=' + idiomaSeleccionado);
         }
     });
 });
 
+
+// #### Pop Up Boxes #######
+
 // PopUp de confirmación de reseteo
-// mensaje en Español e Inglés
+// Mensaje en Español e Inglés
 function confirmarReseteo(nombreFormulario){
     let mensaje;
+    // Accedemos al valor del id 'idioma'
     let idioma = document.getElementById('idioma').value;
-
+    // Si 'idioma' está puesto en español
     if (idioma === "es") {
+        //Muestra el mensaje en español
         mensaje = "Pulsa Aceptar para establecer el valor por defecto de los campos del formulario. " +
             "Pulsa Cancelar para abortar esta operación.";
+    // Si 'idioma' está puesto en español
     } else if (idioma === "en") {
+        //Muestra el mensaje en inglés
         mensaje = "Press Accept to reset the form fields value. Press Cancel to abort this operation."
     } else {
+        // Muestra el mensaje si el idioma no es conocido
         mensaje ="Unknown language / Idioma desconocido"
     }
 
-    if (confirm(mensaje)) { // si se pulsa Aceptar
-// se resetea el formulario
+    if (confirm(mensaje)) { // si se pulsa Aceptar se resetea el formulario
         document.getElementById(nombreFormulario).reset();
     }else{
         console.log("Operación cancelada por el usuario.")
@@ -127,9 +147,10 @@ function confirmarReseteo(nombreFormulario){
 }
 
 // PopUp de confirmación de envío
-// mensaje en Español e Inglés
+// Mensaje en Español e Inglés
 function confirmarEnvio(nombreFormulario){
     let mensaje;
+    // Accedemos al valor del id 'idioma'
     let idioma = document.getElementById('idioma').value;
 
     if (idioma === "es") {
@@ -141,12 +162,67 @@ function confirmarEnvio(nombreFormulario){
         mensaje ="Unknown language / Idioma desconocido"
     }
 
-    if (confirm(mensaje)) { // si se pulsa Aceptar
-// se resetea el formulario
+    if (confirm(mensaje)) { // si se pulsa Aceptar se envía el formulario
         document.getElementById(nombreFormulario).submit();
     }else{
-        document.getElementById(nombreFormulario).remove();
+        console.log("No enviado")
     }
 }
+
+// #### Banderas #######
+
+// Banderas Países y Prefijos Telefónicos Seleccionados
+$(document).ready(function() {
+    function formatOption(option) {
+        // Si no encuentra clave, devuelve el texto
+        if (!option.id) {
+            return option.text;
+        }
+        let imageUrl;
+        // Si th:value="${p.key} = 'es'
+        if(option.id === 'es'){
+            // Asigna la ruta relativa a la bandera correspondiente
+            imageUrl = '../img/espania.jpg';
+        // Si th:value="${p.key} = 'it'
+        }else if(option.id === 'it'){
+            imageUrl = '../img/italia.jpg';
+        // Si th:value="${p.key} = 'pt'
+        }else if(option.id === 'pt'){
+            imageUrl = '../img/portugal.jpg';
+        // Si th:value="${p.key} = 'fr'
+        }else if(option.id === 'fr'){
+            imageUrl = '../img/francia.jpg';
+            // Si th:value="${p.key} = 'en'
+        }else if(option.id === 'en'){
+            imageUrl = '../img/uk.jpg';
+        }
+        return $(
+            // Devuelve un span donde se aloja la imagen de la bandera
+            '<span><img src="' + imageUrl + '" class="img-flag"  alt="Bandera del país"/> ' + option.text + '</span>'
+        );
+    }
+
+    // Select Países
+    $('#pais_seleccionado').select2({
+        templateResult: formatOption,
+        templateSelection: formatOption,
+        minimumResultsForSearch: Infinity
+    });
+    // Select Prefijo Telefónico
+    $('#prefijoTelefonico').select2({
+        templateResult: formatOption,
+        templateSelection: formatOption,
+        minimumResultsForSearch: Infinity
+    });
+    // Select Camnio de idioma
+    $('#idioma').select2({
+        templateResult: formatOption,
+        templateSelection: formatOption,
+        minimumResultsForSearch: Infinity
+    });
+});
+
+
+
 
 

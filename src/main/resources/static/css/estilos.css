@@ -8,6 +8,37 @@
     font-weight: bold;
 }
 
+/****************************Estilos Plug-in Select2********************************/
+
+/* Estilo común para los campos seleccionados */
+#pais_seleccionado, #prefijoTelefonico, #idioma {
+    width: 130px;
+    height: 30px;
+}
+
+/* Estilo común para las imágenes dentro de los selectores */
+#pais_seleccionado + .select2-container .select2-selection__rendered img,
+#prefijoTelefonico + .select2-container .select2-selection__rendered img,
+#idioma + .select2-container .select2-selection__rendered img,
+.img-flag {
+    width: 16px;
+    height: 14px;
+    margin-right: 5px;
+    vertical-align: central;
+}
+
+/* Estilo común para el dropdown que está oculto */
+#pais_seleccionado + .select2-container .select2-dropdown,
+#prefijoTelefonico + .select2-container .select2-dropdown,
+#idioma + .select2-container .select2-dropdown {
+    display: none;
+}
+
+/* Estilo común para las selecciones */
+.select2-container--default .select2-selection--single {
+    background-color: #a1a1a1;
+    border: 1px solid #aaa;
+}
 
 
 

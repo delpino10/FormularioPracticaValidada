@@ -15,6 +15,8 @@ import java.util.List;
 @EdadEqualsFechaNac
 // Válida que las contraseñas sean iguales
 @ContraseniasCoincidente
+// Obliga al usuario a introducir email y teléfono
+@Telef_Email
 public class DatosFormulario {
     @NotBlank
     private String nombre = "Lola";// String Lola como valor por defecto a la vista
@@ -22,7 +24,7 @@ public class DatosFormulario {
     @NotBlank
     @Size(min = 6, max = 12, message= "{Validacion.clave.size}")
     @Pattern(
-            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&])[A-Za-z\\d!#$%&]{1,}$",
+            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&])[A-Za-z\\d!#$%&]+$",
             message = "{Validacion.clave.CaracterEspecial}"
     )
     private String clave;
@@ -31,7 +33,7 @@ public class DatosFormulario {
     @NotBlank
     @Size(min = 6, max = 12, message= "{Validacion.confirmarClave.size}")
     @Pattern(
-            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&])[A-Za-z\\d!#$%&]{1,}$",
+            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!#$%&])[A-Za-z\\d!#$%&]+$",
             message = "{Validacion.confirmarClave.CaracterEspecial}"
     )
     private String confirmarClave;
@@ -64,6 +66,8 @@ public class DatosFormulario {
     private Integer edad;
 
     @NotNull
+    @Min(value = 35,
+    message = "{Validacion.peso.minimo}")
     @Digits(integer = 3, fraction = 2, message = "{Validacion.peso.Digits}")
     private Float peso;
 
@@ -78,6 +82,7 @@ public class DatosFormulario {
     @Size(min = 9, message = "{Vaidacion.telefono.Size}")
     @Pattern(regexp = "^[0-9]+$",
     message = "{Validacion.telefono.digitos}")
+    @NotBlank
     private String telefono;
 
 
@@ -100,11 +105,11 @@ public class DatosFormulario {
     )
     private String archivos;
 
-    @NotNull
+
     @Size(min=1, message = "{Validacion.unTipoMusica.contains}")
     private List<String> musicasSeleccionadas = musicasDefecto();
 
-    @NotNull
+
     @Size(min=2,
         message = "{Validacion.dosTiposAficiones.contains}")
     private List<String> aficionesSeleccionadas = aficionesDefecto();
@@ -124,7 +129,7 @@ public class DatosFormulario {
         aficionesSeleccionadas.add("V");
         return aficionesSeleccionadas;
     }
-    // List con valores por defecto de tipos de Musica
+    // List con valores por defecto de tipos de Música
     private List<String> musicasDefecto(){
         musicasSeleccionadas = new ArrayList<>();
         musicasSeleccionadas.add("F");

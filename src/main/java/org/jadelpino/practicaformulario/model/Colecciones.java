@@ -29,11 +29,11 @@ public class Colecciones {
         listaAficiones.put("P", "Pintura");
         listaAficiones.put("V", "Viajes");
 
-        listaPaises.put("es", new Pais("España", "Castellano", "+34", true, "../static/img/espania.jpg"));
-        listaPaises.put("fr", new Pais("Francia", "Francés", "+33", false, "../static/img/francia.jpg"));
-        listaPaises.put("it", new Pais("Italia", "Italiano", "+39", false, "../static/img/italia.jpg"));
-        listaPaises.put("pt", new Pais("Portugal", "Portugués", "+351", false, "../static/img/portugal.jpg"));
-        listaPaises.put("en", new Pais("Reino Unido", "Ingl", "+44", true, "../static/img/uk.jpg"));
+        listaPaises.put("es", new Pais("España", "Castellano", "+34", true, "espania.jpg"));
+        listaPaises.put("fr", new Pais("Francia", "Francés", "+33", false, "francia.jpg"));
+        listaPaises.put("it", new Pais("Italia", "Italiano", "+39", false, "italia.jpg"));
+        listaPaises.put("pt", new Pais("Portugal", "Portugués", "+351", false, "portugal.jpg"));
+        listaPaises.put("en", new Pais("Reino Unido", "Ingl", "+44", true, "uk.jpg"));
 
         listaMusicas.put("E", "Electrónica");
         listaMusicas.put("F", "Funky");
